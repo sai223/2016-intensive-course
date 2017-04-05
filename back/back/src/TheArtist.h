@@ -12,9 +12,14 @@
 
 #include "config/conf_the_artist.h"
 
+
+#define		MAX_RX_BUFFER_LENGTH	5
+volatile	uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];
+
+
 typedef struct Artist{
 	struct usart_module usart_instance; 
-		
+	struct 
 }Artist;
 
 // one instance 
@@ -25,5 +30,9 @@ void setup();
 void loop(); 
 
 void artist_usart_configure(struct usart_module * usart_instance);
+
+void usart_read_callback(struct usart_module *const usart_module);
+void usart_write_callback(struct usart_module *const usart_module);
+
 
 #endif
