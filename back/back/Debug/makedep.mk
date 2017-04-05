@@ -8,6 +8,8 @@ src\ASF\sam0\utils\stdio\read.c
 
 src\ASF\sam0\utils\stdio\write.c
 
+src\Motor.c
+
 src\TheArtist.c
 
 src\ASF\sam0\drivers\tcc\tcc.c

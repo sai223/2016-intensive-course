@@ -109,6 +109,7 @@ C_SRCS +=  \
 ../src/ASF/sam0/drivers/sercom/sercom.c \
 ../src/ASF/sam0/utils/stdio/read.c \
 ../src/ASF/sam0/utils/stdio/write.c \
+../src/Motor.c \
 ../src/TheArtist.c \
 ../src/ASF/sam0/drivers/tcc/tcc.c \
 ../src/ASF/sam0/drivers/tcc/tcc_callback.c \
@@ -140,6 +141,7 @@ OBJS +=  \
 src/ASF/sam0/drivers/sercom/sercom.o \
 src/ASF/sam0/utils/stdio/read.o \
 src/ASF/sam0/utils/stdio/write.o \
+src/Motor.o \
 src/TheArtist.o \
 src/ASF/sam0/drivers/tcc/tcc.o \
 src/ASF/sam0/drivers/tcc/tcc_callback.o \
@@ -164,6 +166,7 @@ OBJS_AS_ARGS +=  \
 src/ASF/sam0/drivers/sercom/sercom.o \
 src/ASF/sam0/utils/stdio/read.o \
 src/ASF/sam0/utils/stdio/write.o \
+src/Motor.o \
 src/TheArtist.o \
 src/ASF/sam0/drivers/tcc/tcc.o \
 src/ASF/sam0/drivers/tcc/tcc_callback.o \
@@ -188,6 +191,7 @@ C_DEPS +=  \
 src/ASF/sam0/drivers/sercom/sercom.d \
 src/ASF/sam0/utils/stdio/read.d \
 src/ASF/sam0/utils/stdio/write.d \
+src/Motor.d \
 src/TheArtist.d \
 src/ASF/sam0/drivers/tcc/tcc.d \
 src/ASF/sam0/drivers/tcc/tcc_callback.d \
@@ -212,6 +216,7 @@ C_DEPS_AS_ARGS +=  \
 src/ASF/sam0/drivers/sercom/sercom.d \
 src/ASF/sam0/utils/stdio/read.d \
 src/ASF/sam0/utils/stdio/write.d \
+src/Motor.d \
 src/TheArtist.d \
 src/ASF/sam0/drivers/tcc/tcc.d \
 src/ASF/sam0/drivers/tcc/tcc_callback.d \
@@ -247,6 +252,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
