@@ -6,7 +6,8 @@
  *  Author: credtiger96@gmail.com 
  */ 
 #include "TheArtist.h" 
-	
+#include "Motor.h"
+
 
 
 
@@ -15,8 +16,18 @@ void usart_read_callback(struct usart_module * const usart_instance)
 	
 	//port_pin_toggle_output_level(LED_0_PIN);
 	switch  (rx_buffer[0])	{
-		case 'a' : printf("Hello World!"); 
-		port_pin_toggle_output_level(LED_0_PIN);
+		case 'a' :
+		artist_motor_forward(&(artist.motor_instance_1));
+		artist_motor_forward(&(artist.motor_insntace_2));
+		break; 
+		case 'b' :
+		artist_motor_stop(&(artist.motor_instance_1));
+		artist_motor_stop(&(artist.motor_insntace_2));
+		break;
+		case 'c' :
+		artist_motor_backward(&(artist.motor_instance_1));
+		artist_motor_backward(&(artist.motor_insntace_2));
+		break; 
 	}
 
 
@@ -61,4 +72,30 @@ void artist_usart_configure(struct usart_module * usart_instance) {
 	configure_usart_callbacks(usart_instance);
 	
 	stdio_serial_init(usart_instance, EDBG_CDC_MODULE, &config);
+}
+
+
+void artist_motor_pwm_configure(struct Artist * const artist){
+	
+	struct tcc_config config; 
+	tcc_get_config_defaults(&config, TCC0);
+
+	config.counter.clock_source											= GCLK_GENERATOR_0;
+	config.counter.period												= 0xFFFF; //CLOCK 's period. when up is occur. it's about 65535
+	config.counter.clock_prescaler										= 1; // this time we do not divide
+	config.compare.wave_generation										= TCC_WAVE_GENERATION_SINGLE_SLOPE_PWM; // compare
+	
+	
+	config.compare.match[artist->motor_instance_1.pwm_channel]				= artist->motor_instance_1.pwm_val;
+	config.pins.enable_wave_out_pin[artist->motor_instance_1.pwm_output]	= true;
+	config.pins.wave_out_pin[artist->motor_instance_1.pwm_output]			= artist->motor_instance_1.pwm_pin_num;
+	config.pins.wave_out_pin_mux[artist->motor_instance_1.pwm_output]		= artist->motor_instance_1.pwm_mux_num; 
+	
+	config.compare.match[artist->motor_insntace_2.pwm_channel]				= artist->motor_insntace_2.pwm_val;
+	config.pins.enable_wave_out_pin[artist->motor_insntace_2.pwm_output]		= true;
+	config.pins.wave_out_pin[artist->motor_insntace_2.pwm_output]			= artist->motor_insntace_2.pwm_pin_num;
+	config.pins.wave_out_pin_mux[artist->motor_insntace_2.pwm_output]		= artist->motor_insntace_2.pwm_mux_num; 
+
+	tcc_init(&(artist->tcc_instance), TCC0, &config);
+	tcc_enable(&(artist->tcc_instance));
 }

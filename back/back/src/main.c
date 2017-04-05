@@ -2,18 +2,26 @@
 #include "TheArtist.h"
 
 void setup() {
+	
 	system_init();
 	delay_init(); 
 	artist_usart_configure(&(artist.usart_instance));
+	artist_motor_configure(&(artist.motor_instance_1),
+				CONF_ARTIST_MOTOR_1_PWM_PIN, CONF_ARTIST_MOTOR_1_PWM_MUX,
+				CONF_ARTIST_MOTOR_1_PWM_CHANNEL, CONF_ARTIST_MOTOR_1_PWM_OUTPUT);
+	artist_motor_configure(&(artist.motor_insntace_2),
+				CONF_ARTIST_MOTOR_2_PWM_PIN, CONF_ARTIST_MOTOR_2_PWM_MUX ,
+				CONF_ARTIST_MOTOR_2_PWM_CHANNEL, CONF_ARTIST_MOTOR_2_PWM_OUTPUT); 
+	artist_motor_pwm_configure(&artist);
 	
 	system_interrupt_enable_global(); 
 	
-	
-	// [listen on rx buffer]
-	usart_read_buffer_job(&artist.usart_instance,
+	// [listen on RX buffer]
+	usart_read_buffer_job(&(artist.usart_instance),
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
-	// ! [listen on rx buffer]
+	// ! [listen on RX buffer]
 	
+	printf("setup complete\n"); 
 }
 
 void loop() {
