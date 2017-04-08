@@ -69,15 +69,24 @@ float artist_print_ultrasonic_value() {
 float artist_ultrasonic_get_value(struct artist_ultrasonic_module * const module) {
 	// TODO : use timer callback function!
 	uint16_t start, end;
+	uint16_t count = 0;
+	
 	port_pin_set_output_level(module->trigger_pin, false);
 	delay_us(40);
 	port_pin_set_output_level(module->trigger_pin, true);
 	delay_us(10);
 	port_pin_set_output_level(module->trigger_pin, false);
 	tc_start_counter(&(artist_front.tc_instance_ultrasonic)); 
-	while (!(port_pin_get_input_level(module->echo_pin)));
+	while (!(port_pin_get_input_level(module->echo_pin))) {
+		count ++;
+		if (count > 0xFF00) return module->fliter_old_val; 
+	}
+	count =0; 
 	start = tc_get_count_value(&(artist_front.tc_instance_ultrasonic));
-	while ((port_pin_get_input_level(module->echo_pin)));
+	while ((port_pin_get_input_level(module->echo_pin)))  {
+		count ++;
+		if (count > 0xFF00) return module->fliter_old_val;  
+	}
 	end = tc_get_count_value(&(artist_front.tc_instance_ultrasonic));
 	tc_stop_counter(&(artist_front.tc_instance_ultrasonic));
 

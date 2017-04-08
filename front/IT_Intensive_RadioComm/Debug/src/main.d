@@ -117,7 +117,6 @@ src/main.d src/main.o: ../src/main.c \
  ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkDataReq.h \
  ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sys.h \
  ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h \
- ../src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.h \
  ../src/TheArtist.h ../src/asf.h \
  ../src/ASF/common2/services/delay/delay.h \
  ../src/ASF/common2/services/delay/sam0/systick_counter.h \
@@ -394,8 +393,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sys.h:
 
 ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h:
-
-../src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.h:
 
 ../src/TheArtist.h:
 

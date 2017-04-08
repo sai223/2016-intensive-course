@@ -14,33 +14,32 @@ void usart_read_callback(struct usart_module * const usart_instance)
 	
 	//port_pin_toggle_output_level(LED_0_PIN);
 	switch  (rx_buffer[0])	{
-		case 'w' :
-		artist_motor_forward(&(artist_back.motor_instance_1));
-		artist_motor_backward(&(artist_back.motor_insntace_2));
-		break; 
-		case ' ' :
-		artist_motor_stop(&(artist_back.motor_instance_1));
-		artist_motor_stop(&(artist_back.motor_insntace_2));
-		break;
-		case 's' :
-		artist_motor_backward(&(artist_back.motor_instance_1));
-		artist_motor_forward(&(artist_back.motor_insntace_2));
-		break;
-		case 'a' :
-		artist_motor_forward(&(artist_back.motor_instance_1));
-		artist_motor_forward(&(artist_back.motor_insntace_2));
-		break;
-		case 'd' :
-		artist_motor_backward(&(artist_back.motor_instance_1));
-		artist_motor_backward(&(artist_back.motor_insntace_2));
-		break;
-		
+		case 'm' : 
+		switch (rx_buffer[1]){
+			case 'w' :
+			artist_motor_forward(&(artist_back.motor_instance_1));
+			artist_motor_backward(&(artist_back.motor_insntace_2));
+			break;
+			case ' ' :
+			artist_motor_stop(&(artist_back.motor_instance_1));
+			artist_motor_stop(&(artist_back.motor_insntace_2));
+			break;
+			case 's' :
+			artist_motor_backward(&(artist_back.motor_instance_1));
+			artist_motor_forward(&(artist_back.motor_insntace_2));
+			break;
+			case 'a' :
+			artist_motor_forward(&(artist_back.motor_instance_1));
+			artist_motor_forward(&(artist_back.motor_insntace_2));
+			break;
+			case 'd' :
+			artist_motor_backward(&(artist_back.motor_instance_1));
+			artist_motor_backward(&(artist_back.motor_insntace_2));
+			break;
+		}
 	}
-
-
 	usart_read_buffer_job( usart_instance,
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
-
 }
 void usart_write_callback(struct usart_module *const usart_module)
 {

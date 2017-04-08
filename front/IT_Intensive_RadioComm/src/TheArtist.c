@@ -18,23 +18,32 @@ void artist_ultrasonic_tc_configure() {
 	config.clock_source = GCLK_GENERATOR_3;
 	config.clock_prescaler = TC_CLOCK_PRESCALER_DIV8;
 	config.enable_capture_on_channel[TC_COMPARE_CAPTURE_CHANNEL_0] = true;
-	tc_init(&(artist_front.tc_instance_ultrasonic), TC3, &config);
+	tc_init(&(artist_front.tc_instance_ultrasonic), TC4, &config);
 	tc_enable(&(artist_front.tc_instance_ultrasonic));
 }
 
 
 void usart_read_callback(struct usart_module * const usart_instance)
 {
-	printf("Hello world!");
-	//port_pin_toggle_output_level(LED_0_PIN);
-
+	printf("1test");  
+	switch(rx_buffer[0]) {
+		case 'c' : 
+		break; 
+		case 'w' : 
+		usart_write_buffer_job(usart_instance, "mw\0\0\0", MAX_RX_BUFFER_LENGTH); 	
+		break; 
+		case ' ' : 
+		usart_write_buffer_job(usart_instance, "m \0\0\0", MAX_RX_BUFFER_LENGTH);
+		break;
+	}
 	usart_read_buffer_job( usart_instance,
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
+	
 
 }
 void usart_write_callback(struct usart_module *const usart_module)
 {
-	//port_pin_toggle_output_level(LED_0_PIN);
+	
 }
 
 
@@ -117,14 +126,14 @@ void artist_scheduler_tc_configure() {
 	//! [setup_change_config]
 	config_tc.counter_size = TC_COUNTER_SIZE_8BIT;
 	config_tc.clock_source = GCLK_GENERATOR_3;
-	config_tc.clock_prescaler = TC_CLOCK_PRESCALER_DIV256; //
-	config_tc.counter_8_bit.period = 70;
+	config_tc.clock_prescaler = TC_CLOCK_PRESCALER_DIV1024; //
+	config_tc.counter_8_bit.period = 50;
 	//config_tc.counter_8_bit.compare_capture_channel[0] = 5;
 	//config_tc.counter_8_bit.compare_capture_channel[1] = 54;
 	//! [setup_change_config]
 
 	//! [20 Hz setup_set_config]
-	tc_init(&(artist_front.tc_instance_timer), TC4, &config_tc);
+	tc_init(&(artist_front.tc_instance_timer), TC5, &config_tc);
 	//! [setup_set_config]
 
 	//! [setup_enable]
@@ -132,9 +141,6 @@ void artist_scheduler_tc_configure() {
 	//! [setup_enable]
 }
 
-/*
-about 400Hz
-*/
 void callbacks (void) {
 	// [ultra sonic]
 	static uint16_t ultrasonic_counter = 0;
