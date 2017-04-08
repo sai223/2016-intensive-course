@@ -131,7 +131,7 @@ src/TheArtist.d src/TheArtist.o: ../src/TheArtist.c ../src/TheArtist.h \
  ../src/ASF/common/services/serial/sam0_usart/usart_serial.h \
  ../src/ASF/sam0/drivers/tcc/tcc.h \
  ../src/ASF/sam0/drivers/tcc/tcc_callback.h \
- ../src/ASF/sam0/drivers/tcc/tcc.h ../src/config/conf_the_artist.h \
+ ../src/ASF/sam0/drivers/tcc/tcc.h ../src/config/conf_the_artist_back.h \
  ../src/Motor.h
 
 ../src/TheArtist.h:
@@ -408,6 +408,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/ASF/sam0/drivers/tcc/tcc.h:
 
-../src/config/conf_the_artist.h:
+../src/config/conf_the_artist_back.h:
 
 ../src/Motor.h:

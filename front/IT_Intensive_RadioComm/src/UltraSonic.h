@@ -11,7 +11,7 @@
  
 
  // configure
-#include <asf.h> 
+#include <asf.h>
 
 struct artist_ultrasonic_module { 
 	uint8_t echo_pin;
