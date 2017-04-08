@@ -52,14 +52,13 @@ static bool sendBusy= false; // flag 역할 죽을수도 있어서
 
 uint8_t height;
 uint8_t width;
-	
+
+uint8_t mode[4];
 uint8_t frame[2];
-uint8_t start_ack[6] = "start";
-	
-uint8_t r_data[50][51];
 
+uint8_t r_data[50][51;
 
-uint8_t ack[5] = "okay";
+uint8_t ack[4] = "okay";
 
 
 void configure_usart(void)
@@ -97,7 +96,30 @@ static void sendDonePKT(NWK_DataReq_t *req) {
 	printf("sendDonePKT\n");
 }
 
-int line_count = 0;
+static void sendFrame(void) {
+	
+	if(sendBusy)
+	return;
+	
+	appDataReq.dstAddr = 9;
+	appDataReq.dstEndpoint = APP_ENDPOINT;
+	appDataReq.srcEndpoint = APP_ENDPOINT;
+	appDataReq.data = r_data[line_count];
+	appDataReq.size = 51;
+	appDataReq.confirm = sendDonePKT;
+	NWK_DataReq(&appDataReq);
+	
+	//LED_Toggle(LED0);
+	sendBusy = true;
+	line_count++;
+	if(line_count == 50) {
+		SYS_TimerStop(&sendT);
+		line_count = 0;
+	}
+	
+	printf("sendPKT");
+}
+
 static void sendPKT(void) {
 	
 	if(sendBusy)
@@ -136,6 +158,10 @@ static void radioInit(void) {
 	//SYS_TimerStop(&sendT);  // timer 멈추기
 }
 
+void receive_picture () {
+	
+}
+
 int main (void)
 {
 	irq_initialize_vectors();
@@ -144,73 +170,87 @@ int main (void)
 	SYS_Init();
 	
 	configure_usart();
-	cpu_irq_enable();	
-	
+	cpu_irq_enable();
 
+	radioInit();
 
 	bool sendflag = false;
 	bool recvflag = true;
 	
-	
-	//Receive start packet from computer
 	while(true) {
 		//printf("flag");
-		if (usart_read_buffer_wait(&usart_instance, frame, sizeof(frame)) == STATUS_OK) {
+		if (usart_read_buffer_wait(&usart_instance, mode, sizeof(mode)) == STATUS_OK) {
 			LED_Toggle(LED0);
-			height = frame[0];
-			width = frame[1];
-			usart_write_buffer_wait(&usart_instance, start_ack, sizeof(start_ack));
-			break;
+			usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
+			
+			if(!strcmp(mode, "draw")) {
+				
+				//Start receive start packet from computer
+				while(true) {
+					//printf("draw okay");
+					if (usart_read_buffer_wait(&usart_instance, frame, sizeof(frame)) == STATUS_OK) {
+						LED_Toggle(LED0);
+						height = frame[0];
+						width = frame[1];
+						usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
+						break;
+					}
+				}
+				//End receive start packet from computer
+				
+				//Start receiving Bit Packets from computer
+				int line_num = 0;
+				while (true) {
+					
+					if(recvflag) {
+						if (usart_read_buffer_wait(&usart_instance, r_data[line_num], sizeof(r_data[line_num])) == STATUS_OK) {
+							LED_Toggle(LED0);
+							
+							recvflag = false;
+							sendflag = true;
+							
+							line_num++;
+						}
+					}
+					
+					if(sendflag) {
+						for(int i = 0;i<1;i++) {
+							usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
+						}
+						//printf("hello python");
+						sendflag = false;
+						recvflag = true;
+					}
+					
+					if(line_num >= height)
+					break;
+				}
+				
+				sendPKT();
+			}
+			
+			else if(!strcmp(mode, "maze")) {
+				
+			}
+			
+
 		}
 	}
-	//End receive start packet from computer
 	
-	//Start receiving Bit Packets from computer
-	int line_num = 0;
-	while (true) {
-		
-		if(recvflag) {
-			if (usart_read_buffer_wait(&usart_instance, r_data[line_num], sizeof(r_data[line_num])) == STATUS_OK) {
-				LED_Toggle(LED0);
-				
-				recvflag = false;
-				sendflag = true;
-				
-				line_num++;
-			}
-		}
-		
-		if(sendflag) {
-			for(int i = 0;i<1;i++) {
-				usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
-			}
-			//printf("hello python");
-			sendflag = false;
-			recvflag = true;
-		}
-		
-		if(line_num >= height)
-		break;
-	}
+	//Receive start packet from computer
+	
 	/*
 	while(true) {
 		delay_ms(1500);
-		for(int i = 0; i < height*2; i++) {
+		for(int i = 0; i < height; i++) {
 			printf("\n");
-			for(int j=0; j<30;j++) {
-				printf("%d ", packet_data[i][j]);
+			for(int j=0; j<51;j++) {
+				printf("%d ", r_data[i][j]);
 			}
 		}
 		printf("\n");
 	}
 	*/
-	//End receiving Bit Packets from computer
-
-	//Start Sending to Artist Car
-	
-	radioInit();	
-	sendPKT();
-
 	while (1) {
 		SYS_TaskHandler();
 	}
