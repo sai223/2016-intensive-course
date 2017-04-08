@@ -12,7 +12,6 @@ void artist_ultrasonic_configure (struct artist_ultrasonic_module * module, uint
 	module->trigger_pin = trig;  
 	module->filter_large_change_counts = 0; 
 	module->fliter_old_val = 0; 
-	
 }
 
 void artist_ultrasonic_gpio_init() {
