@@ -9,25 +9,32 @@
 #include "Motor.h"
 
 
-
-
 void usart_read_callback(struct usart_module * const usart_instance)
 {
 	
 	//port_pin_toggle_output_level(LED_0_PIN);
 	switch  (rx_buffer[0])	{
-		case 'a' :
-		artist_motor_forward(&(artist.motor_instance_1));
-		artist_motor_forward(&(artist.motor_insntace_2));
+		case 'w' :
+		artist_motor_forward(&(artist_back.motor_instance_1));
+		artist_motor_backward(&(artist_back.motor_insntace_2));
 		break; 
-		case 'b' :
-		artist_motor_stop(&(artist.motor_instance_1));
-		artist_motor_stop(&(artist.motor_insntace_2));
+		case ' ' :
+		artist_motor_stop(&(artist_back.motor_instance_1));
+		artist_motor_stop(&(artist_back.motor_insntace_2));
 		break;
-		case 'c' :
-		artist_motor_backward(&(artist.motor_instance_1));
-		artist_motor_backward(&(artist.motor_insntace_2));
-		break; 
+		case 's' :
+		artist_motor_backward(&(artist_back.motor_instance_1));
+		artist_motor_forward(&(artist_back.motor_insntace_2));
+		break;
+		case 'a' :
+		artist_motor_forward(&(artist_back.motor_instance_1));
+		artist_motor_forward(&(artist_back.motor_insntace_2));
+		break;
+		case 'd' :
+		artist_motor_backward(&(artist_back.motor_instance_1));
+		artist_motor_backward(&(artist_back.motor_insntace_2));
+		break;
+		
 	}
 
 
@@ -75,7 +82,7 @@ void artist_usart_configure(struct usart_module * usart_instance) {
 }
 
 
-void artist_motor_pwm_configure(struct Artist * const artist){
+void artist_motor_pwm_configure(struct Artist_Back * const artist){
 	
 	struct tcc_config config; 
 	tcc_get_config_defaults(&config, TCC0);
