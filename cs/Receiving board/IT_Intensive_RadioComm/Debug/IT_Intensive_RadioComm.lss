@@ -7,9 +7,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 .relocate     00000070  20000000  00005ca4  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00001280  20000070  00005d14  00020070  2**2
+  2 .bss          0000147c  20000070  00005d14  00020070  2**2
                   ALLOC
-  3 .stack        00002000  200012f0  00006f94  00020070  2**0
+  3 .stack        00002004  200014ec  00007190  00020070  2**0
                   ALLOC
   4 .ARM.attributes 00000028  00000000  00000000  00020070  2**0
                   CONTENTS, READONLY
@@ -29,7 +29,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  12 .debug_line   0001972d  00000000  00000000  0008c0d3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    00088d75  00000000  00000000  000a5800  2**0
+ 13 .debug_str    00088d78  00000000  00000000  000a5800  2**0
                   CONTENTS, READONLY, DEBUGGING
  14 .debug_frame  00002390  00000000  00000000  0012e578  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -37,7 +37,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
 Disassembly of section .text:
 
 00000000 <_sfixed>:
-       0:	200032f0 	.word	0x200032f0
+       0:	200034f0 	.word	0x200034f0
        4:	00001f45 	.word	0x00001f45
        8:	00001f41 	.word	0x00001f41
        c:	00001f41 	.word	0x00001f41
@@ -8573,7 +8573,7 @@ void Reset_Handler(void)
     2000:	20000000 	.word	0x20000000
     2004:	00005ca4 	.word	0x00005ca4
     2008:	20000070 	.word	0x20000070
-    200c:	200012f0 	.word	0x200012f0
+    200c:	200014ec 	.word	0x200014ec
     2010:	20000070 	.word	0x20000070
     2014:	20000004 	.word	0x20000004
     2018:	20000074 	.word	0x20000074
@@ -8774,7 +8774,7 @@ extern caddr_t _sbrk(int incr)
     20e4:	4770      	bx	lr
     20e6:	46c0      	nop			; (mov r8, r8)
     20e8:	200000c8 	.word	0x200000c8
-    20ec:	200032f0 	.word	0x200032f0
+    20ec:	200034f0 	.word	0x200034f0
 
 000020f0 <_close>:
 }
@@ -18402,7 +18402,7 @@ void trx_aes_wrrd(uint8_t addr, uint8_t *idata, uint8_t length)
 
 000046a8 <receivePKT>:
 
-uint8_t r_data[50][51];
+uint8_t r_data[60][51]; //50
 uint8_t t_data[51];
 
 int line_num = 0;
@@ -18428,7 +18428,7 @@ static bool receivePKT(NWK_DataInd_t *ind) {
     46c4:	189b      	adds	r3, r3, r2
     46c6:	18fb      	adds	r3, r7, r3
     46c8:	5559      	strb	r1, [r3, r5]
-		printf("%d", r_data[line_num][i]);
+		printf("%d ", r_data[line_num][i]);
     46ca:	480b      	ldr	r0, [pc, #44]	; (46f8 <receivePKT+0x50>)
     46cc:	4b0b      	ldr	r3, [pc, #44]	; (46fc <receivePKT+0x54>)
     46ce:	4798      	blx	r3
@@ -18452,7 +18452,7 @@ static bool receivePKT(NWK_DataInd_t *ind) {
     46da:	4b09      	ldr	r3, [pc, #36]	; (4700 <receivePKT+0x58>)
     46dc:	61da      	str	r2, [r3, #28]
 		r_data[line_num][i] = ind->data[i];
-		printf("%d", r_data[line_num][i]);
+		printf("%d ", r_data[line_num][i]);
 	}
 
 	LED_Toggle(LED0);
@@ -18605,7 +18605,7 @@ static void radioInit(void) {
     47cc:	bd10      	pop	{r4, pc}
     47ce:	46c0      	nop			; (mov r8, r8)
     47d0:	000038d5 	.word	0x000038d5
-    47d4:	200012eb 	.word	0x200012eb
+    47d4:	200014e7 	.word	0x200014e7
     47d8:	20000730 	.word	0x20000730
     47dc:	000038e9 	.word	0x000038e9
     47e0:	000038fd 	.word	0x000038fd
@@ -18624,7 +18624,7 @@ static void radioInit(void) {
     47fa:	46c0      	nop			; (mov r8, r8)
     47fc:	20000730 	.word	0x20000730
     4800:	00003951 	.word	0x00003951
-    4804:	200012eb 	.word	0x200012eb
+    4804:	200014e7 	.word	0x200014e7
 
 00004808 <tmr_ovf_callback>:
     4808:	b508      	push	{r3, lr}
@@ -18659,7 +18659,7 @@ static void radioInit(void) {
     4842:	bd08      	pop	{r3, pc}
     4844:	20000730 	.word	0x20000730
     4848:	000038fd 	.word	0x000038fd
-    484c:	200012eb 	.word	0x200012eb
+    484c:	200014e7 	.word	0x200014e7
 
 00004850 <tmr_cca_callback>:
     4850:	b508      	push	{r3, lr}
@@ -20622,7 +20622,7 @@ static void radioInit(void) {
     57f2:	602b      	str	r3, [r5, #0]
     57f4:	bd70      	pop	{r4, r5, r6, pc}
     57f6:	46c0      	nop			; (mov r8, r8)
-    57f8:	200012ec 	.word	0x200012ec
+    57f8:	200014e8 	.word	0x200014e8
 
 000057fc <__sread>:
     57fc:	b570      	push	{r4, r5, r6, lr}
@@ -20801,7 +20801,7 @@ static void radioInit(void) {
     5962:	602b      	str	r3, [r5, #0]
     5964:	bd70      	pop	{r4, r5, r6, pc}
     5966:	46c0      	nop			; (mov r8, r8)
-    5968:	200012ec 	.word	0x200012ec
+    5968:	200014e8 	.word	0x200014e8
 
 0000596c <__swsetup_r>:
     596c:	4b36      	ldr	r3, [pc, #216]	; (5a48 <__swsetup_r+0xdc>)
@@ -20932,7 +20932,7 @@ static void radioInit(void) {
     5a72:	602b      	str	r3, [r5, #0]
     5a74:	bd70      	pop	{r4, r5, r6, pc}
     5a76:	46c0      	nop			; (mov r8, r8)
-    5a78:	200012ec 	.word	0x200012ec
+    5a78:	200014e8 	.word	0x200014e8
 
 00005a7c <_fstat_r>:
     5a7c:	2300      	movs	r3, #0
@@ -20950,7 +20950,7 @@ static void radioInit(void) {
     5a96:	d000      	beq.n	5a9a <_fstat_r+0x1e>
     5a98:	602b      	str	r3, [r5, #0]
     5a9a:	bd70      	pop	{r4, r5, r6, pc}
-    5a9c:	200012ec 	.word	0x200012ec
+    5a9c:	200014e8 	.word	0x200014e8
 
 00005aa0 <_isatty_r>:
     5aa0:	2300      	movs	r3, #0
@@ -20968,7 +20968,7 @@ static void radioInit(void) {
     5aba:	602b      	str	r3, [r5, #0]
     5abc:	bd70      	pop	{r4, r5, r6, pc}
     5abe:	46c0      	nop			; (mov r8, r8)
-    5ac0:	200012ec 	.word	0x200012ec
+    5ac0:	200014e8 	.word	0x200014e8
 
 00005ac4 <_lseek_r>:
     5ac4:	b570      	push	{r4, r5, r6, lr}
@@ -20988,7 +20988,7 @@ static void radioInit(void) {
     5ae2:	602b      	str	r3, [r5, #0]
     5ae4:	bd70      	pop	{r4, r5, r6, pc}
     5ae6:	46c0      	nop			; (mov r8, r8)
-    5ae8:	200012ec 	.word	0x200012ec
+    5ae8:	200014e8 	.word	0x200014e8
 
 00005aec <memchr>:
     5aec:	b2c9      	uxtb	r1, r1
@@ -21022,7 +21022,7 @@ static void radioInit(void) {
     5b22:	602b      	str	r3, [r5, #0]
     5b24:	bd70      	pop	{r4, r5, r6, pc}
     5b26:	46c0      	nop			; (mov r8, r8)
-    5b28:	200012ec 	.word	0x200012ec
+    5b28:	200014e8 	.word	0x200014e8
     5b2c:	42000800 	.word	0x42000800
     5b30:	42000c00 	.word	0x42000c00
     5b34:	42001000 	.word	0x42001000
@@ -21070,7 +21070,7 @@ static void radioInit(void) {
     5bdc:	000033fe 	.word	0x000033fe
 
 00005be0 <tc_interrupt_vectors.11902>:
-    5be0:	00141312 00006425 00000043              ....%d..C...
+    5be0:	00141312 00206425 00000043              ....%d .C...
 
 00005bec <_global_impure_ptr>:
     5bec:	2000000c                                ... 

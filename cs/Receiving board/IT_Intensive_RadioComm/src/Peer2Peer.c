@@ -6,7 +6,7 @@
 #include "sio2host.h"
 #include <string.h>
 
-uint8_t r_data[50][51];
+uint8_t r_data[60][51]; //50
 uint8_t t_data[51];
 
 int line_num = 0;
@@ -15,7 +15,7 @@ static bool receivePKT(NWK_DataInd_t *ind) {
 	printf("\n");
 	for(int i = 0; i<51;i++) {
 		r_data[line_num][i] = ind->data[i];
-		printf("%d", r_data[line_num][i]);
+		printf("%d ", r_data[line_num][i]);
 	}
 
 	LED_Toggle(LED0);
@@ -32,7 +32,6 @@ static void radioInit(void) {
 }
 
 static NWK_DataReq_t appDataReq;
-//static uint8_t data[] = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
 static bool sendBusy= false; // flag 역할 죽을수도 있어서
 
 static void sendDonePKT(NWK_DataReq_t *req) {

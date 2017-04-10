@@ -50,7 +50,7 @@ for x in range(height):
 print("\n")
 
 ser = serial.Serial(
-    port='COM12',
+    port='COM9',
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
@@ -100,6 +100,7 @@ if ser.isOpen():
 
     if(s == "maze"):
         ser.write(b'maze')
+        receive_ack()
     elif(s == "draw"):
         ser.write(b'draw')
         receive_ack()
