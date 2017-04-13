@@ -5659,7 +5659,6 @@ extern int _lseek(int file, int ptr, int dir)
 void setup() {
     1da4:	b530      	push	{r4, r5, lr}
     1da6:	b083      	sub	sp, #12
-	
 	// [SYSTEM INITIALIZE]
 	system_init();
     1da8:	4b15      	ldr	r3, [pc, #84]	; (1e00 <setup+0x5c>)

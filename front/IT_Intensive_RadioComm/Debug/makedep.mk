@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\Maze.c
+
 src\UltraSonic.c
 
 src\ASF\sam0\drivers\tcc\tcc.c

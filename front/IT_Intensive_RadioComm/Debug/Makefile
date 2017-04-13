@@ -142,6 +142,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../src/Maze.c \
 ../src/UltraSonic.c \
 ../src/ASF/sam0/drivers/tcc/tcc.c \
 ../src/ASF/sam0/drivers/tcc/tcc_callback.c \
@@ -197,6 +198,7 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+src/Maze.o \
 src/UltraSonic.o \
 src/ASF/sam0/drivers/tcc/tcc.o \
 src/ASF/sam0/drivers/tcc/tcc_callback.o \
@@ -245,6 +247,7 @@ src/main.o \
 src/Peer2Peer.o
 
 OBJS_AS_ARGS +=  \
+src/Maze.o \
 src/UltraSonic.o \
 src/ASF/sam0/drivers/tcc/tcc.o \
 src/ASF/sam0/drivers/tcc/tcc_callback.o \
@@ -293,6 +296,7 @@ src/main.o \
 src/Peer2Peer.o
 
 C_DEPS +=  \
+src/Maze.d \
 src/UltraSonic.d \
 src/ASF/sam0/drivers/tcc/tcc.d \
 src/ASF/sam0/drivers/tcc/tcc_callback.d \
@@ -341,6 +345,7 @@ src/main.d \
 src/Peer2Peer.d
 
 C_DEPS_AS_ARGS +=  \
+src/Maze.d \
 src/UltraSonic.d \
 src/ASF/sam0/drivers/tcc/tcc.d \
 src/ASF/sam0/drivers/tcc/tcc_callback.d \
@@ -403,6 +408,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

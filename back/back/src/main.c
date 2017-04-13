@@ -2,7 +2,6 @@
 #include "TheArtist.h"
 
 void setup() {
-	
 	// [SYSTEM INITIALIZE]
 	system_init();
 	delay_init(); 

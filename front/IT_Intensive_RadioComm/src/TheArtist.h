@@ -15,6 +15,7 @@
 #include "config/conf_the_artist_front.h"
 #include "Motor.h"
 #include "UltraSonic.h"
+#include "Maze.h" 
 
 #define		MAX_RX_BUFFER_LENGTH	5
 volatile	uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];
@@ -34,9 +35,10 @@ typedef struct Artist_Front{
 	float left_distance; 
 	float right_distance; 
 	
+	enum MAZE_STATUS maze_status;
+	
 }Artist_Front;
 
-// one instance 
 
 
 void artist_usart_configure(struct usart_module * usart_instance);
@@ -46,6 +48,7 @@ void artist_scheduler_tc_configure(void);
 void artist_configure_tc_callbacks(void);
 void artist_ultrasonic_update(void); 
 
+// one instance
 struct Artist_Front artist_front;
 
 #endif

@@ -25,6 +25,7 @@ void setup(void) {
 	artist_ultrasonic_tc_configure();
 	artist_scheduler_tc_configure();
 	artist_configure_tc_callbacks();  
+	artist_init_maze(); 
 
 	cpu_irq_enable();
 	

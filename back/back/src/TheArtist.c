@@ -28,11 +28,11 @@ void usart_read_callback(struct usart_module * const usart_instance)
 			artist_motor_backward(&(artist_back.motor_instance_1));
 			artist_motor_forward(&(artist_back.motor_insntace_2));
 			break;
-			case 'a' :
+			case 'l' :
 			artist_motor_forward(&(artist_back.motor_instance_1));
 			artist_motor_forward(&(artist_back.motor_insntace_2));
 			break;
-			case 'd' :
+			case 'r' :
 			artist_motor_backward(&(artist_back.motor_instance_1));
 			artist_motor_backward(&(artist_back.motor_insntace_2));
 			break;

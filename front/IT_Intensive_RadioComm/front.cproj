@@ -278,8 +278,8 @@
       </framework-data>
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.edbg</avrtool>
-    <avrtoolserialnumber>ATML2127031800008721</avrtoolserialnumber>
-    <avrdeviceexpectedsignature>0x10010019</avrdeviceexpectedsignature>
+    <avrtoolserialnumber>ATML2127031800008967</avrtoolserialnumber>
+    <avrdeviceexpectedsignature>0x10010319</avrdeviceexpectedsignature>
     <avrtoolinterface>SWD</avrtoolinterface>
     <com_atmel_avrdbg_tool_edbg>
       <ToolOptions>
@@ -289,7 +289,7 @@
         <InterfaceName>SWD</InterfaceName>
       </ToolOptions>
       <ToolType>com.atmel.avrdbg.tool.edbg</ToolType>
-      <ToolNumber>ATML2127031800008721</ToolNumber>
+      <ToolNumber>ATML2127031800008967</ToolNumber>
       <ToolName>EDBG MSD</ToolName>
     </com_atmel_avrdbg_tool_edbg>
     <avrtoolinterfaceclock>2000000</avrtoolinterfaceclock>
@@ -791,6 +791,12 @@
     <Folder Include="src\config\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Maze.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Maze.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\UltraSonic.c">
       <SubType>compile</SubType>
     </Compile>

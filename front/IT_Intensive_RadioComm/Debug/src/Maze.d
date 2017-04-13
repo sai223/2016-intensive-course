@@ -1,4 +1,4 @@
-src/TheArtist.d src/TheArtist.o: ../src/TheArtist.c ../src/TheArtist.h \
+src/Maze.d src/Maze.o: ../src/Maze.c ../src/Maze.h ../src/TheArtist.h \
  ../src/asf.h ../src/ASF/sam0/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h ../src/ASF/sam0/utils/status_codes.h \
@@ -141,7 +141,9 @@ src/TheArtist.d src/TheArtist.o: ../src/TheArtist.c ../src/TheArtist.h \
  ../src/ASF/sam0/drivers/tc/tc.h ../src/ASF/sam0/drivers/tcc/tcc.h \
  ../src/ASF/sam0/drivers/tcc/tcc_callback.h \
  ../src/ASF/sam0/drivers/tcc/tcc.h ../src/config/conf_the_artist_front.h \
- ../src/Motor.h ../src/UltraSonic.h ../src/Maze.h
+ ../src/Motor.h ../src/UltraSonic.h
+
+../src/Maze.h:
 
 ../src/TheArtist.h:
 
@@ -444,5 +446,3 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/Motor.h:
 
 ../src/UltraSonic.h:
-
-../src/Maze.h:

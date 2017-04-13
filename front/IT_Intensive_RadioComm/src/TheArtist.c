@@ -7,7 +7,6 @@
 */
 
 #include "TheArtist.h"
-#include "Motor.h"
 
 void artist_ultrasonic_tc_configure() {
 	struct tc_config config;
@@ -29,8 +28,8 @@ void usart_read_callback(struct usart_module * const usart_instance)
 	switch(rx_buffer[0]) {
 		case 'c' : 
 		break; 
-		case 'w' : 
-		usart_write_buffer_job(usart_instance, "mw\0\0\0", MAX_RX_BUFFER_LENGTH); 	
+		case 'w' :
+		usart_write_buffer_job(usart_instance, "mw\0\0\0", MAX_RX_BUFFER_LENGTH);
 		break; 
 		case ' ' : 
 		usart_write_buffer_job(usart_instance, "m \0\0\0", MAX_RX_BUFFER_LENGTH);
@@ -143,19 +142,27 @@ void artist_scheduler_tc_configure() {
 
 void callbacks (void) {
 	// [ultra sonic]
-	static uint16_t ultrasonic_counter = 0;
+	static uint16_t ultrasonic_counter		= 0;
+	static uint16_t maze_counter			= 0; 
 	ultrasonic_counter ++;
-	if (ultrasonic_counter > 20) {
+	maze_counter ++; 
+	
+	if (ultrasonic_counter > 5) {
 		artist_ultrasonic_update();
 		ultrasonic_counter = 0; 
 	}
+	
+	if (maze_counter > 30) {
+		artist_do_maze(); 
+		maze_counter = 0; 
+	}
+	
 	// ! [ultra sonic]
 }
 void artist_configure_tc_callbacks(void)
 {
 	tc_register_callback(&(artist_front.tc_instance_timer), callbacks ,
 	TC_CALLBACK_OVERFLOW);
-	
 	
 	tc_enable_callback(&(artist_front.tc_instance_timer), TC_CALLBACK_OVERFLOW);
 }
