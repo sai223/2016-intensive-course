@@ -90,7 +90,7 @@ timer_multiplier    0x1               ../src/ASF/thirdparty/wireless/services/co
 errno               0x4               d:/atmel studio 7.0/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc_nano.a(lib_a-reent.o)
 nwkIb               0x5c              src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwk.o
 ptr_get             0x4               src/ASF/sam0/utils/stdio/read.o
-r_data              0x9f6             src/Peer2Peer.o
+r_data              0xbf4             src/Peer2Peer.o
 dummy_read          0x2               src/ASF/thirdparty/wireless/services/trx_access/trx_access.o
 ptr_put             0x4               src/ASF/sam0/utils/stdio/write.o
 _tc_instances       0xc               src/ASF/sam0/drivers/tc/tc_interrupt.o
@@ -9431,7 +9431,6 @@ LOAD d:/atmel studio 7.0/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-
  *fill*         0x00005be3        0x1 
  .rodata.str1.4
                 0x00005be4        0x4 src/Peer2Peer.o
-                                  0x3 (size before relaxing)
  .rodata.str1.1
                 0x00005be8        0x2 d:/atmel studio 7.0/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc_nano.a(lib_a-impure.o)
  *fill*         0x00005bea        0x2 
@@ -9542,7 +9541,7 @@ LOAD d:/atmel studio 7.0/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-
                 0x20000070                . = ALIGN (0x4)
                 0x20000070                _erelocate = .
 
-.bss            0x20000070     0x1280 load address 0x00005d14
+.bss            0x20000070     0x147c load address 0x00005d14
                 0x20000070                . = ALIGN (0x4)
                 0x20000070                _sbss = .
                 0x20000070                _szero = .
@@ -9656,26 +9655,27 @@ LOAD d:/atmel studio 7.0/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-
                 0x20000878                slave
                 0x2000087c                config
                 0x200008b4                master
- COMMON         0x200008c0      0xa2b src/Peer2Peer.o
+ COMMON         0x200008c0      0xc27 src/Peer2Peer.o
                 0x200008c0                r_data
-                0x200012b8                t_data
- COMMON         0x200012eb        0x1 ../src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/lib\libsam0_lib_hw_timer.a(common_hw_timer.o)
-                0x200012eb                timer_multiplier
- COMMON         0x200012ec        0x4 d:/atmel studio 7.0/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc_nano.a(lib_a-reent.o)
-                0x200012ec                errno
-                0x200012f0                . = ALIGN (0x4)
-                0x200012f0                _ebss = .
-                0x200012f0                _ezero = .
+                0x200014b4                t_data
+ COMMON         0x200014e7        0x1 ../src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/lib\libsam0_lib_hw_timer.a(common_hw_timer.o)
+                0x200014e7                timer_multiplier
+ COMMON         0x200014e8        0x4 d:/atmel studio 7.0/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/5.3.1/../../../../arm-none-eabi/lib/armv6-m\libc_nano.a(lib_a-reent.o)
+                0x200014e8                errno
+                0x200014ec                . = ALIGN (0x4)
+                0x200014ec                _ebss = .
+                0x200014ec                _ezero = .
 
-.stack          0x200012f0     0x2000 load address 0x00006f94
-                0x200012f0                . = ALIGN (0x8)
-                0x200012f0                _sstack = .
-                0x200032f0                . = (. + STACK_SIZE)
- *fill*         0x200012f0     0x2000 
-                0x200032f0                . = ALIGN (0x8)
-                0x200032f0                _estack = .
-                0x200032f0                . = ALIGN (0x4)
-                0x200032f0                _end = .
+.stack          0x200014ec     0x2004 load address 0x00007190
+                0x200014f0                . = ALIGN (0x8)
+ *fill*         0x200014ec        0x4 
+                0x200014f0                _sstack = .
+                0x200034f0                . = (. + STACK_SIZE)
+ *fill*         0x200014f0     0x2000 
+                0x200034f0                . = ALIGN (0x8)
+                0x200034f0                _estack = .
+                0x200034f0                . = ALIGN (0x4)
+                0x200034f0                _end = .
 OUTPUT(IT_Intensive_RadioComm.elf elf32-littlearm)
 
 .ARM.attributes
@@ -10351,7 +10351,7 @@ OUTPUT(IT_Intensive_RadioComm.elf elf32-littlearm)
  .debug_line    0x0001856b      0xf05 src/Peer2Peer.o
  .debug_line    0x00019470      0x2bd ../src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/lib\libsam0_lib_hw_timer.a(common_hw_timer.o)
 
-.debug_str      0x00000000    0x88d75
+.debug_str      0x00000000    0x88d78
  .debug_str     0x00000000    0x78eaf src/ASF/common2/services/delay/sam0/systick_counter.o
                               0x7925e (size before relaxing)
  .debug_str     0x00078eaf       0x94 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
@@ -10424,9 +10424,9 @@ OUTPUT(IT_Intensive_RadioComm.elf elf32-littlearm)
                               0x7c3af (size before relaxing)
  .debug_str     0x00087e3f      0x1de src/ASF/thirdparty/wireless/services/trx_access/trx_access.o
                               0x7ec63 (size before relaxing)
- .debug_str     0x0008801d       0xc7 src/Peer2Peer.o
-                              0x7d686 (size before relaxing)
- .debug_str     0x000880e4      0xc91 ../src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/lib\libsam0_lib_hw_timer.a(common_hw_timer.o)
+ .debug_str     0x0008801d       0xca src/Peer2Peer.o
+                              0x7d689 (size before relaxing)
+ .debug_str     0x000880e7      0xc91 ../src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/lib\libsam0_lib_hw_timer.a(common_hw_timer.o)
                                0x2c21 (size before relaxing)
 
 .debug_frame    0x00000000     0x2390
