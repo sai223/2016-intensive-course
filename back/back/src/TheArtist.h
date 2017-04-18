@@ -21,8 +21,8 @@ volatile	uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];
 typedef struct Artist_Back{
 	struct tcc_module			tcc_instance;
 	struct usart_module			usart_instance; 
-	struct artist_motor_module  motor_instance_1;
-	struct artist_motor_module  motor_insntace_2; 
+	struct artist_motor_module  motor_left_side;
+	struct artist_motor_module  motor_right_side; 
 }Artist_Back;
 
 // one instance 

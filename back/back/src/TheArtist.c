@@ -11,30 +11,24 @@
 
 void usart_read_callback(struct usart_module * const usart_instance)
 {
-	
 	//port_pin_toggle_output_level(LED_0_PIN);
 	switch  (rx_buffer[0])	{
 		case 'm' : 
 		switch (rx_buffer[1]){
 			case 'w' :
-			artist_motor_forward(&(artist_back.motor_instance_1));
-			artist_motor_backward(&(artist_back.motor_insntace_2));
+			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STRAIGHT);
 			break;
-			case ' ' :
-			artist_motor_stop(&(artist_back.motor_instance_1));
-			artist_motor_stop(&(artist_back.motor_insntace_2));
+			case 'a' :
+			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), LEFT);
+			break;
+			case 'd' :
+			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), RIGHT);
 			break;
 			case 's' :
-			artist_motor_backward(&(artist_back.motor_instance_1));
-			artist_motor_forward(&(artist_back.motor_insntace_2));
+			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), BACK);
 			break;
-			case 'l' :
-			artist_motor_forward(&(artist_back.motor_instance_1));
-			artist_motor_forward(&(artist_back.motor_insntace_2));
-			break;
-			case 'r' :
-			artist_motor_backward(&(artist_back.motor_instance_1));
-			artist_motor_backward(&(artist_back.motor_insntace_2));
+			case ' ' :
+			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
 			break;
 		}
 	}
@@ -92,15 +86,15 @@ void artist_motor_pwm_configure(struct Artist_Back * const artist){
 	config.compare.wave_generation										= TCC_WAVE_GENERATION_SINGLE_SLOPE_PWM; // compare
 	
 	
-	config.compare.match[artist->motor_instance_1.pwm_channel]				= artist->motor_instance_1.pwm_val;
-	config.pins.enable_wave_out_pin[artist->motor_instance_1.pwm_output]	= true;
-	config.pins.wave_out_pin[artist->motor_instance_1.pwm_output]			= artist->motor_instance_1.pwm_pin_num;
-	config.pins.wave_out_pin_mux[artist->motor_instance_1.pwm_output]		= artist->motor_instance_1.pwm_mux_num; 
+	config.compare.match[artist->motor_left_side.pwm_channel]				= artist->motor_left_side.pwm_val;
+	config.pins.enable_wave_out_pin[artist->motor_left_side.pwm_output]	= true;
+	config.pins.wave_out_pin[artist->motor_left_side.pwm_output]			= artist->motor_left_side.pwm_pin_num;
+	config.pins.wave_out_pin_mux[artist->motor_left_side.pwm_output]		= artist->motor_left_side.pwm_mux_num; 
 	
-	config.compare.match[artist->motor_insntace_2.pwm_channel]				= artist->motor_insntace_2.pwm_val;
-	config.pins.enable_wave_out_pin[artist->motor_insntace_2.pwm_output]		= true;
-	config.pins.wave_out_pin[artist->motor_insntace_2.pwm_output]			= artist->motor_insntace_2.pwm_pin_num;
-	config.pins.wave_out_pin_mux[artist->motor_insntace_2.pwm_output]		= artist->motor_insntace_2.pwm_mux_num; 
+	config.compare.match[artist->motor_right_side.pwm_channel]				= artist->motor_right_side.pwm_val;
+	config.pins.enable_wave_out_pin[artist->motor_right_side.pwm_output]		= true;
+	config.pins.wave_out_pin[artist->motor_right_side.pwm_output]			= artist->motor_right_side.pwm_pin_num;
+	config.pins.wave_out_pin_mux[artist->motor_right_side.pwm_output]		= artist->motor_right_side.pwm_mux_num; 
 
 	tcc_init(&(artist->tcc_instance), TCC0, &config);
 	tcc_enable(&(artist->tcc_instance));
