@@ -55,7 +55,7 @@ void setup(void) {
 	usart_read_buffer_job( &(artist_front.usart_instance),
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
 	
-	printf("front node setup complete\n"); 
+	//printf("front node setup complete\n"); 
 	
 }
 /************************************************************************/

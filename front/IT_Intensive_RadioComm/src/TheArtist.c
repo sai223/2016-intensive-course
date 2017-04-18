@@ -152,7 +152,7 @@ void callbacks (void) {
 		ultrasonic_counter = 0; 
 	}
 	
-	if (maze_counter > 30) {
+	if (maze_counter > 10) {
 		artist_do_maze(); 
 		maze_counter = 0; 
 	}
