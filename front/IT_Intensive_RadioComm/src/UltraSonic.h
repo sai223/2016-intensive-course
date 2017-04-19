@@ -8,7 +8,8 @@
 
 #ifndef ULTRASONIC_H_
 #define ULTRASONIC_H_
- 
+#define ULTRASONIC_DEBUG_
+
 
  // configure
 #include <asf.h>
@@ -26,6 +27,6 @@ void	artist_ultrasonic_configure (struct artist_ultrasonic_module * module,
 						uint8_t echo, uint8_t trig);  
 void	artist_ultrasonic_gpio_init(); 
 float	artist_ultrasonic_get_value(struct artist_ultrasonic_module * const module); 
-float	artist_print_ultrasonic_value();
+void	artist_print_ultrasonic_value();
 
 #endif /* ULTRASONIC_H_ */

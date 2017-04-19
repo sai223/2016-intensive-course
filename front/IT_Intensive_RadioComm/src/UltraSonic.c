@@ -60,7 +60,7 @@ float new, float old, float FILTER_VAL ) {
 	return (new * (1 - FILTER_VAL)) + (old * (FILTER_VAL));
 }
 
-float artist_print_ultrasonic_value() {
+void artist_print_ultrasonic_value() {
 	printf("%5.2f, %5.2f, %5.2f\n", 
 				artist_front.left_distance, 
 				artist_front.center_distance, 

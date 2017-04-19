@@ -12,6 +12,7 @@
 void usart_read_callback(struct usart_module * const usart_instance)
 {
 	//port_pin_toggle_output_level(LED_0_PIN);
+	//printf("%s\n", rx_buffer); 
 	switch  (rx_buffer[0])	{
 		case 'm' : 
 		switch (rx_buffer[1]){
@@ -87,7 +88,7 @@ void artist_motor_pwm_configure(struct Artist_Back * const artist){
 	
 	
 	config.compare.match[artist->motor_left_side.pwm_channel]				= artist->motor_left_side.pwm_val;
-	config.pins.enable_wave_out_pin[artist->motor_left_side.pwm_output]	= true;
+	config.pins.enable_wave_out_pin[artist->motor_left_side.pwm_output]	=	true;
 	config.pins.wave_out_pin[artist->motor_left_side.pwm_output]			= artist->motor_left_side.pwm_pin_num;
 	config.pins.wave_out_pin_mux[artist->motor_left_side.pwm_output]		= artist->motor_left_side.pwm_mux_num; 
 	

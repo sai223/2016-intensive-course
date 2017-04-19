@@ -27,7 +27,6 @@ void setup() {
 }
 
 void loop() {
-	delay_ms(100); 
 }
 
 int main (void)

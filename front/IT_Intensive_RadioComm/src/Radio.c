@@ -20,7 +20,7 @@ int line_num = 0;
 	LED_Toggle(LED0);
 	line_num++;
 	*/  
-	printf("packet received\n");  
+	//printf("%s", ind->data);   
 	return true;
 }
 
