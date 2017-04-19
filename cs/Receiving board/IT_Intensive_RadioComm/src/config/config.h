@@ -58,7 +58,7 @@
   #define APP_BAND                0x00
   #define APP_MODULATION          0x24
 #else
-  #define APP_CHANNEL             0x0f
+  #define APP_CHANNEL             0x0e
 #endif
 
 #define SYS_SECURITY_MODE                   0

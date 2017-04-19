@@ -18517,8 +18517,8 @@ __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_irq(void)
 }
 
 static void radioInit(void) {
-	NWK_SetAddr(9);  //林家 汲沥
-    4722:	2009      	movs	r0, #9
+	NWK_SetAddr(0x0B);  //林家 汲沥
+    4722:	200b      	movs	r0, #11
     4724:	4b0d      	ldr	r3, [pc, #52]	; (475c <main+0x58>)
     4726:	4798      	blx	r3
 	NWK_SetPanId(APP_PANID);  //PANID : Personal Area Network ID
@@ -18526,7 +18526,7 @@ static void radioInit(void) {
     472a:	4b0e      	ldr	r3, [pc, #56]	; (4764 <main+0x60>)
     472c:	4798      	blx	r3
 	PHY_SetChannel(APP_CHANNEL);
-    472e:	200f      	movs	r0, #15
+    472e:	200e      	movs	r0, #14
     4730:	4b0d      	ldr	r3, [pc, #52]	; (4768 <main+0x64>)
     4732:	4798      	blx	r3
 	PHY_SetRxState(true);
