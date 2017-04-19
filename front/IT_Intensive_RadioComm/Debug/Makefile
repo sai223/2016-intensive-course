@@ -143,6 +143,7 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../src/Maze.c \
+../src/Radio.c \
 ../src/UltraSonic.c \
 ../src/ASF/sam0/drivers/tcc/tcc.c \
 ../src/ASF/sam0/drivers/tcc/tcc_callback.c \
@@ -187,8 +188,7 @@ C_SRCS +=  \
 ../src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/hw_timer.c \
 ../src/ASF/thirdparty/wireless/services/sal/at86rf2xx/src/sal.c \
 ../src/ASF/thirdparty/wireless/services/trx_access/trx_access.c \
-../src/main.c \
-../src/Peer2Peer.c
+../src/main.c
 
 
 PREPROCESSING_SRCS += 
@@ -199,6 +199,7 @@ ASM_SRCS +=
 
 OBJS +=  \
 src/Maze.o \
+src/Radio.o \
 src/UltraSonic.o \
 src/ASF/sam0/drivers/tcc/tcc.o \
 src/ASF/sam0/drivers/tcc/tcc_callback.o \
@@ -243,11 +244,11 @@ src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/src/sysTimer.o \
 src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/hw_timer.o \
 src/ASF/thirdparty/wireless/services/sal/at86rf2xx/src/sal.o \
 src/ASF/thirdparty/wireless/services/trx_access/trx_access.o \
-src/main.o \
-src/Peer2Peer.o
+src/main.o
 
 OBJS_AS_ARGS +=  \
 src/Maze.o \
+src/Radio.o \
 src/UltraSonic.o \
 src/ASF/sam0/drivers/tcc/tcc.o \
 src/ASF/sam0/drivers/tcc/tcc_callback.o \
@@ -292,11 +293,11 @@ src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/src/sysTimer.o \
 src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/hw_timer.o \
 src/ASF/thirdparty/wireless/services/sal/at86rf2xx/src/sal.o \
 src/ASF/thirdparty/wireless/services/trx_access/trx_access.o \
-src/main.o \
-src/Peer2Peer.o
+src/main.o
 
 C_DEPS +=  \
 src/Maze.d \
+src/Radio.d \
 src/UltraSonic.d \
 src/ASF/sam0/drivers/tcc/tcc.d \
 src/ASF/sam0/drivers/tcc/tcc_callback.d \
@@ -341,11 +342,11 @@ src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/src/sysTimer.d \
 src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/hw_timer.d \
 src/ASF/thirdparty/wireless/services/sal/at86rf2xx/src/sal.d \
 src/ASF/thirdparty/wireless/services/trx_access/trx_access.d \
-src/main.d \
-src/Peer2Peer.d
+src/main.d
 
 C_DEPS_AS_ARGS +=  \
 src/Maze.d \
+src/Radio.d \
 src/UltraSonic.d \
 src/ASF/sam0/drivers/tcc/tcc.d \
 src/ASF/sam0/drivers/tcc/tcc_callback.d \
@@ -390,8 +391,7 @@ src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/src/sysTimer.d \
 src/ASF/thirdparty/wireless/services/common_hw_timer/sam0/hw_timer.d \
 src/ASF/thirdparty/wireless/services/sal/at86rf2xx/src/sal.d \
 src/ASF/thirdparty/wireless/services/trx_access/trx_access.d \
-src/main.d \
-src/Peer2Peer.d
+src/main.d
 
 OUTPUT_FILE_PATH +=front.elf
 

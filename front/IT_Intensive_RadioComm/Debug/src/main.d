@@ -1,5 +1,7 @@
-src/main.d src/main.o: ../src/main.c \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/at86rf233/inc/phy.h \
+src/main.d src/main.o: ../src/main.c ../src/TheArtist.h ../src/asf.h \
+ ../src/ASF/sam0/utils/compiler.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stddef.h \
+ ../src/ASF/common/utils/parts.h ../src/ASF/sam0/utils/status_codes.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stdint.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_default_types.h \
@@ -7,16 +9,6 @@ src/main.d src/main.o: ../src/main.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_newlib_version.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_intsup.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_stdint.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stdbool.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwk.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h \
- ../src/config/config.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRoute.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRx.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkFrame.h \
- ../src/ASF/sam0/utils/compiler.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stddef.h \
- ../src/ASF/common/utils/parts.h ../src/ASF/sam0/utils/status_codes.h \
  ../src/ASF/sam0/utils/preprocessor/preprocessor.h \
  ../src/ASF/sam0/utils/preprocessor/tpaste.h \
  ../src/ASF/sam0/utils/preprocessor/stringz.h \
@@ -24,6 +16,7 @@ src/main.d src/main.o: ../src/main.c \
  ../src/ASF/sam0/utils/preprocessor/preprocessor.h \
  ../src/ASF/sam0/utils/preprocessor/mrecursion.h \
  ../src/ASF/sam0/utils/header_files/io.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stdbool.h \
  ../src/ASF/sam0/utils/cmsis/samr21/include/samr21.h \
  ../src/ASF/sam0/utils/cmsis/samr21/include/samr21g18a.h \
  ../src/ASF/thirdparty/CMSIS/Include/core_cm0plus.h \
@@ -112,12 +105,6 @@ src/main.d src/main.o: ../src/main.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\alloca.h \
  ../src/ASF/common/utils/interrupt.h \
  ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkGroup.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkSecurity.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkDataReq.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sys.h \
- ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h \
- ../src/TheArtist.h ../src/asf.h \
  ../src/ASF/common2/services/delay/delay.h \
  ../src/ASF/common2/services/delay/sam0/systick_counter.h \
  ../src/ASF/sam0/drivers/system/clock/clock.h \
@@ -154,9 +141,32 @@ src/main.d src/main.o: ../src/main.c \
  ../src/ASF/sam0/drivers/tc/tc.h ../src/ASF/sam0/drivers/tcc/tcc.h \
  ../src/ASF/sam0/drivers/tcc/tcc_callback.h \
  ../src/ASF/sam0/drivers/tcc/tcc.h ../src/config/conf_the_artist_front.h \
- ../src/Motor.h ../src/UltraSonic.h ../src/Maze.h
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/at86rf233/inc/phy.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwk.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h \
+ ../src/config/config.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRoute.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRx.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkFrame.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkGroup.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkSecurity.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkDataReq.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sys.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h \
+ ../src/Motor.h ../src/UltraSonic.h ../src/Maze.h ../src/Radio.h \
+ ../src/config/conf_radio.h
 
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/at86rf233/inc/phy.h:
+../src/TheArtist.h:
+
+../src/asf.h:
+
+../src/ASF/sam0/utils/compiler.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stddef.h:
+
+../src/ASF/common/utils/parts.h:
+
+../src/ASF/sam0/utils/status_codes.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stdint.h:
 
@@ -172,28 +182,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_stdint.h:
 
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stdbool.h:
-
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwk.h:
-
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h:
-
-../src/config/config.h:
-
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRoute.h:
-
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRx.h:
-
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkFrame.h:
-
-../src/ASF/sam0/utils/compiler.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stddef.h:
-
-../src/ASF/common/utils/parts.h:
-
-../src/ASF/sam0/utils/status_codes.h:
-
 ../src/ASF/sam0/utils/preprocessor/preprocessor.h:
 
 ../src/ASF/sam0/utils/preprocessor/tpaste.h:
@@ -207,6 +195,8 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gc
 ../src/ASF/sam0/utils/preprocessor/mrecursion.h:
 
 ../src/ASF/sam0/utils/header_files/io.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.2.1\include\stdbool.h:
 
 ../src/ASF/sam0/utils/cmsis/samr21/include/samr21.h:
 
@@ -384,20 +374,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h:
 
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkGroup.h:
-
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkSecurity.h:
-
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkDataReq.h:
-
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sys.h:
-
-../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h:
-
-../src/TheArtist.h:
-
-../src/asf.h:
-
 ../src/ASF/common2/services/delay/delay.h:
 
 ../src/ASF/common2/services/delay/sam0/systick_counter.h:
@@ -478,8 +454,36 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/config/conf_the_artist_front.h:
 
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/at86rf233/inc/phy.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwk.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h:
+
+../src/config/config.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRoute.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRx.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkFrame.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkGroup.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkSecurity.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkDataReq.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sys.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h:
+
 ../src/Motor.h:
 
 ../src/UltraSonic.h:
 
 ../src/Maze.h:
+
+../src/Radio.h:
+
+../src/config/conf_radio.h:

@@ -13,9 +13,14 @@
 
 
 #include "config/conf_the_artist_front.h"
+#include "phy.h"
+#include "nwk.h"
+#include "config.h"
+#include "sys.h"
 #include "Motor.h"
 #include "UltraSonic.h"
 #include "Maze.h" 
+#include "Radio.h"
 
 #define		MAX_RX_BUFFER_LENGTH	5
 volatile	uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];

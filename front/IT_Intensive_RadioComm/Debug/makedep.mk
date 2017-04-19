@@ -4,6 +4,8 @@
 
 src\Maze.c
 
+src\Radio.c
+
 src\UltraSonic.c
 
 src\ASF\sam0\drivers\tcc\tcc.c
@@ -93,6 +95,4 @@ src\ASF\thirdparty\wireless\services\sal\at86rf2xx\src\sal.c
 src\ASF\thirdparty\wireless\services\trx_access\trx_access.c
 
 src\main.c
-
-src\Peer2Peer.c
 

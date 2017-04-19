@@ -153,7 +153,7 @@ void callbacks (void) {
 	}
 	
 	if (maze_counter > 10) {
-		artist_do_maze(); 
+	//	artist_do_maze(); 
 		maze_counter = 0; 
 	}
 	
