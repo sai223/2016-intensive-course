@@ -791,10 +791,19 @@
     <Folder Include="src\config\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\config\conf_radio.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\Maze.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Maze.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Radio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Radio.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\UltraSonic.c">
@@ -1458,9 +1467,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Peer2Peer.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

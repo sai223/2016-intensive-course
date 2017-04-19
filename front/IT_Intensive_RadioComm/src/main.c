@@ -6,10 +6,6 @@
 *  Author: credt
 */
 
-#include "phy.h"
-#include "nwk.h"
-#include "config.h"
-#include "sys.h"
 #include "TheArtist.h"
 /************************************************************************/
 /*                                                                      */
@@ -55,14 +51,16 @@ void setup(void) {
 	usart_read_buffer_job( &(artist_front.usart_instance),
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
 	
-	//printf("front node setup complete\n"); 
+	radioInit();  
+	
+	printf("front node setup complete\n"); 
 	
 }
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
 void loop(void) {
-	
+	SYS_TaskHandler();  
 }
 /************************************************************************/
 /*                                                                      */
