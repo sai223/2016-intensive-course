@@ -25,7 +25,7 @@ static bool receivePKT(NWK_DataInd_t *ind) {
 }
 
 static void radioInit(void) {
-	NWK_SetAddr(9);  //林家 汲沥
+	NWK_SetAddr(0x0B);  //林家 汲沥
 	NWK_SetPanId(APP_PANID);  //PANID : Personal Area Network ID
 	PHY_SetChannel(APP_CHANNEL);
 	PHY_SetRxState(true);
@@ -43,11 +43,11 @@ static void sendPKT(void) {
 	if(sendBusy)
 	return;
 	
-	appDataReq.dstAddr = 10;
+	appDataReq.dstAddr = 0x0A;
 	appDataReq.dstEndpoint = APP_ENDPOINT;
 	appDataReq.srcEndpoint = APP_ENDPOINT;
 	appDataReq.data = t_data;
-	appDataReq.size = 51;
+	appDataReq.size = 31;
 	appDataReq.confirm = sendDonePKT;
 	NWK_DataReq(&appDataReq);
 	

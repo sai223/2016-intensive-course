@@ -13598,6 +13598,34 @@ int main () {
     4696:	4b10      	ldr	r3, [pc, #64]	; (46d8 <main+0x50>)
     4698:	4798      	blx	r3
 	cpu_irq_enable();
+<<<<<<< HEAD
+    4716:	2201      	movs	r2, #1
+    4718:	4b0f      	ldr	r3, [pc, #60]	; (4758 <main+0x54>)
+    471a:	701a      	strb	r2, [r3, #0]
+    This function ensures the apparent order of the explicit memory operations before
+    and after the instruction, without ensuring their completion.
+ */
+__attribute__( ( always_inline ) ) __STATIC_INLINE void __DMB(void)
+{
+  __ASM volatile ("dmb");
+    471c:	f3bf 8f5f 	dmb	sy
+  This function enables IRQ interrupts by clearing the I-bit in the CPSR.
+  Can only be executed in Privileged modes.
+ */
+__attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_irq(void)
+{
+  __ASM volatile ("cpsie i" : : : "memory");
+    4720:	b662      	cpsie	i
+	line_num++;
+	return true;
+}
+
+static void radioInit(void) {
+	NWK_SetAddr(0x0B);  //주소 설정
+    4722:	200b      	movs	r0, #11
+    4724:	4b0d      	ldr	r3, [pc, #52]	; (475c <main+0x58>)
+    4726:	4798      	blx	r3
+=======
     469a:	2201      	movs	r2, #1
     469c:	4b0f      	ldr	r3, [pc, #60]	; (46dc <main+0x54>)
     469e:	701a      	strb	r2, [r3, #0]
@@ -13607,14 +13635,21 @@ int main () {
     46a6:	2009      	movs	r0, #9
     46a8:	4b0d      	ldr	r3, [pc, #52]	; (46e0 <main+0x58>)
     46aa:	4798      	blx	r3
+>>>>>>> f2c81f85a32c5aa40bdb35e80e31da497932c487
 	NWK_SetPanId(APP_PANID);  //PANID : Personal Area Network ID
     46ac:	480d      	ldr	r0, [pc, #52]	; (46e4 <main+0x5c>)
     46ae:	4b0e      	ldr	r3, [pc, #56]	; (46e8 <main+0x60>)
     46b0:	4798      	blx	r3
 	PHY_SetChannel(APP_CHANNEL);
+<<<<<<< HEAD
+    472e:	200e      	movs	r0, #14
+    4730:	4b0d      	ldr	r3, [pc, #52]	; (4768 <main+0x64>)
+    4732:	4798      	blx	r3
+=======
     46b2:	200f      	movs	r0, #15
     46b4:	4b0d      	ldr	r3, [pc, #52]	; (46ec <main+0x64>)
     46b6:	4798      	blx	r3
+>>>>>>> f2c81f85a32c5aa40bdb35e80e31da497932c487
 	PHY_SetRxState(true);
     46b8:	2001      	movs	r0, #1
     46ba:	4b0d      	ldr	r3, [pc, #52]	; (46f0 <main+0x68>)

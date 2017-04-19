@@ -48,20 +48,31 @@ static SYS_Timer_t sendF;
 static SYS_Timer_t sendM;
 
 struct usart_module usart_instance;
-//static struct usart_module host_uart_module;
 
 static NWK_DataReq_t appDataReq;
-static bool sendBusy= false; // flag 역할 죽을수도 있어서
 
-uint8_t height;
-uint8_t width;
+bool sendBusy= false; // flag 역할 죽을수도 있어서
 
-uint8_t mode[4];
-uint8_t frame[2] = {0,};
+#define MAX_FRAME_SIZE 30
+#define MAX_ARTISTMODE_SIZE 5
+#define MAX_ACK_SIZE 5
 
-uint8_t r_data[51][51];
+#define ARTIST_GROUND_ADDR 0x0A
+#define ARTIST_FRONT_ADDR 0x0B
+#define ARTIST_CHANNEL 0x0E
 
-uint8_t ack[4] = "okay";
+typedef struct Image_frame {
+	
+	uint8_t height;
+	uint8_t width;
+}Image_frame;
+Image_frame image_frame;
+
+uint8_t artistMode[MAX_ARTISTMODE_SIZE];
+
+uint8_t r_data[MAX_FRAME_SIZE + 1][MAX_FRAME_SIZE + 1];
+
+uint8_t ack[MAX_ACK_SIZE] = "okay\0";
 
 
 void configure_usart(void)
@@ -98,53 +109,48 @@ static void sendDonePKT(NWK_DataReq_t *req) {
 	sendBusy = false;
 }
 
-int sendmode = 0;
-static void sendMode(void) {
+static void sendArtistMode(void) {
 	
 	if(sendBusy)
 	return;
 	
-	appDataReq.dstAddr = 9;
+	appDataReq.dstAddr = ARTIST_FRONT_ADDR;
 	appDataReq.dstEndpoint = APP_ENDPOINT;
 	appDataReq.srcEndpoint = APP_ENDPOINT;
-	appDataReq.data = mode;
-	appDataReq.size = 4;
+	appDataReq.data = artistMode;
+	appDataReq.size = MAX_ARTISTMODE_SIZE;
 	appDataReq.confirm = sendDonePKT;
 	NWK_DataReq(&appDataReq);
-	
-	printf("sendmode : %d\n", sendmode);
-	sendmode++;
 	
 	sendBusy = true;
 }
 
 int line_count = 0;
 static void sendPKT(void) {
-	
 	if(sendBusy)
 	return;
 	
-	appDataReq.dstAddr = 9;
+	appDataReq.dstAddr = ARTIST_FRONT_ADDR;
 	appDataReq.dstEndpoint = APP_ENDPOINT;
 	appDataReq.srcEndpoint = APP_ENDPOINT;
 	appDataReq.data = r_data[line_count];
-	appDataReq.size = 51;
+	appDataReq.size = MAX_FRAME_SIZE + 1;
 	appDataReq.confirm = sendDonePKT;
 	NWK_DataReq(&appDataReq);
 	
 	printf("sendPKT : %d\n", line_count);
 	sendBusy = true;
 	line_count++;
-	if(line_count == height+1) {
+	if(line_count == image_frame.height + 1) {
 		SYS_TimerStop(&sendT);
 		line_count = 0;
 	}
 }
 
 static void radioInit(void) {
-	NWK_SetAddr(10);  //주소 설정
+	NWK_SetAddr(ARTIST_GROUND_ADDR);  //주소 설정
 	NWK_SetPanId(APP_PANID);  //PANID : Personal Area Network ID
-	PHY_SetChannel(APP_CHANNEL);
+	PHY_SetChannel(ARTIST_CHANNEL);
 	PHY_SetRxState(true);
 	NWK_OpenEndpoint(APP_ENDPOINT, receivePKT);
 	
@@ -155,13 +161,98 @@ static void radioInit(void) {
 	
 	sendM.interval = 100;
 	sendM.mode = SYS_TIMER_INTERVAL_MODE;
-	sendM.handler = sendMode;
+	sendM.handler = sendArtistMode;
 	SYS_TimerStart(&sendM);
 	//SYS_TimerStop(&sendT);  // timer 멈추기
 }
 
+void receive_mode () {
+	
+	uint8_t mode[5] = {0,};
+	
+	while(true) {
+		if (usart_read_buffer_wait(&usart_instance, mode, sizeof(mode)) == STATUS_OK) {
+			if( !strcmp(mode, "draw\0") || !strcmp(mode, "maze\0") ) {
+				LED_Toggle(LED0);
+				
+				if(!strcmp(mode, "draw\0")) {
+					artistMode[0] = 0x01;
+					artistMode[1] = 0x02;
+					artistMode[2] = 0xFF;
+					artistMode[3] = 0xFF;
+					artistMode[4] = 0x03;
+				}
+				if(!strcmp(mode, "maze\0")) {
+					artistMode[0] = 0x01;
+					artistMode[1] = 0x02;
+					artistMode[2] = 0xFF;
+					artistMode[3] = 0xFF;
+					artistMode[4] = 0x04;
+				}
+				
+				usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
+				break;
+			}
+		}
+	}
+}
+
+void receive_frame() {
+	
+	uint8_t frame[2] = {0, 0};
+		
+	while(true) {
+		if (usart_read_buffer_wait(&usart_instance, frame, sizeof(frame)) == STATUS_OK) {
+			LED_Toggle(LED0);
+			
+			image_frame.height = frame[0];
+			image_frame.width = frame[1];
+			
+			for(int i = 0; i<2;i++) {
+				r_data[0][i] = frame[i];
+			}
+			
+			usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
+			break;
+		}
+	}
+}
+
 void receive_picture () {
 	
+	bool recvflag = true;
+	bool sendflag = false;
+	
+	int line_num = 1;
+	while (true) {
+		
+		if(recvflag) {
+			if (usart_read_buffer_wait(&usart_instance, r_data[line_num], sizeof(r_data[line_num])) == STATUS_OK) {
+				LED_Toggle(LED0);
+				
+				recvflag = false;
+				sendflag = true;
+				
+				line_num++;
+			}
+		}
+		
+		if(sendflag) {
+			for(int i = 0;i<1;i++) {
+				usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
+			}
+			sendflag = false;
+			recvflag = true;
+			
+			if(line_num >= image_frame.height + 1) {
+				line_num = 1;
+				break;
+			}
+		}
+	}
+	
+	delay_ms(3000);
+	printf("receive_picture ended\n");
 }
 
 int main (void)
@@ -174,27 +265,71 @@ int main (void)
 	configure_usart();
 	cpu_irq_enable();
 
-	radioInit();	
+	radioInit();
+	
+	while(true) {
+		
+		receive_mode();
+		
+		if(artistMode[4] == 0x03) {
+			receive_frame();
+			receive_picture();	
+			
+			delay_ms(3000);
+			printf("check1\n");
+			sendArtistMode();
+			sendPKT();			
+		}
+		
+		else if(artistMode[4] == 0x04) {
+			delay_ms(3000);
+			printf("check2\n");	
+			sendArtistMode();	
+		}
+		
+		while (1) {
+			SYS_TaskHandler();
+		}
+	}
+}
+
+/*
+int main (void)
+{
+	irq_initialize_vectors();
+	system_init();
+	delay_init();
+	SYS_Init();
+	
+	configure_usart();
+	cpu_irq_enable();
+
+	radioInit();
+	
+	uint8_t frame[2] = {0,};
 
 	bool sendflag = false;
 	bool recvflag = true;
 	
 	while(true) {
 		if (usart_read_buffer_wait(&usart_instance, mode, sizeof(mode)) == STATUS_OK) {
-			LED_Toggle(LED0);
 			usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
 			
-			if(!strcmp(mode, "draw")) {
+			//if(mode[0] == 'd' && mode[1] == 'r' && mode[2] == 'a' && mode[3] == 'w') {
+			//if(!strcmp(mode[0], "d") || !strcmp(mode[1], "r") || !strcmp(mode[2], "a") || !strcmp(mode[3], "w")){
+			if(!strcmp(mode, "draw\0")) {
+				LED_Toggle(LED0);
 				
 				//Start receive start packet from computer
 				while(true) {
 					if (usart_read_buffer_wait(&usart_instance, frame, sizeof(frame)) == STATUS_OK) {
 						LED_Toggle(LED0);
-						height = frame[0];
-						width = frame[1];
+						
+						image_frame.height = frame[0];
+						image_frame.width = frame[1];
 						
 						for(int i = 0; i<2;i++) {
-							r_data[0][i] = frame[i];	
+							r_data[0][i] = frame[i];
 						}
 						//strcpy(r_data[0], frame);
 						usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
@@ -225,7 +360,7 @@ int main (void)
 						sendflag = false;
 						recvflag = true;
 						
-						if(line_num >= height+1) {
+						if(line_num >= image_frame.height + 1) {
 							line_num = 1;
 							break;
 						}
@@ -234,12 +369,12 @@ int main (void)
 				
 				delay_ms(2000);
 				printf("draw mode\n");
-				sendMode();
-				sendPKT();
+				//sendMode();
+				//sendPKT();
 				break;
 			}
 			
-			else if(!strcmp(mode, "maze")) {
+			else if(!strcmp(mode, "maze\0")) {
 				delay_ms(2000);
 				printf("maze mode\n");
 				sendMode();
@@ -248,18 +383,29 @@ int main (void)
 		}
 	}
 /*
+	
+
+	/*
 	while(true) {
-		delay_ms(1500);
-		for(int i = 0; i < height + 1; i++) {
-			printf("\n");
-			for(int j=0; j<51;j++) {
-				printf("%d ", r_data[i][j]);
-			}
-		}
-		printf("\n");
+	delay_ms(1500);
+	for(int i = 0; i < image_frame.height + 1; i++) {
+	printf("\n");
+	for(int j=0; j<image_frame.width + 1;j++) {
+	printf("%d ", r_data[i][j]);
 	}
-*/
+	}
+	printf("\n");
+	}
+	*/
+/*
+	while(true) {
+		delay_ms(1000);
+		printf("%s", mode);
+	}
+
 	while (1) {
 		SYS_TaskHandler();
 	}
 }
+*/
+
