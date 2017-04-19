@@ -40,7 +40,7 @@ typedef struct Artist_Front{
 	float left_distance; 
 	float right_distance; 
 	
-	enum MAZE_STATUS maze_status;
+	enum DIRECTION_STATUS maze_status;
 	
 }Artist_Front;
 
