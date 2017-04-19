@@ -27,6 +27,10 @@ void setup() {
 }
 
 void loop() {
+	/*
+	if (artist_back.line_tracing_run) {
+		line_tracing();  
+	}*/  
 }
 
 int main (void)

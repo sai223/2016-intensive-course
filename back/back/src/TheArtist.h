@@ -23,6 +23,8 @@ typedef struct Artist_Back{
 	struct usart_module			usart_instance; 
 	struct artist_motor_module  motor_left_side;
 	struct artist_motor_module  motor_right_side; 
+	
+	bool line_tracing_run;  
 }Artist_Back;
 
 // one instance 

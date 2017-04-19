@@ -1,6 +1,7 @@
 /*
  * UltraSonic.h
  *
+ 
  * Created: 4/6/2017 8:52:17 PM
  *  Author: credtiger96@gmail.com
  */ 
@@ -21,7 +22,6 @@ struct artist_ultrasonic_module {
 	uint8_t filter_large_change_counts; 
 	float fliter_old_val; 
 }; 
-
 
 void	artist_ultrasonic_configure (struct artist_ultrasonic_module * module, 
 						uint8_t echo, uint8_t trig);  
