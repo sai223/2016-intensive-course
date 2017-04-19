@@ -1,7 +1,7 @@
 from PIL import Image
 import serial
 
-img = Image.open("ajou.png")
+img = Image.open("seoul.png")
 print(img.size)
 
 height = img.size[1]
@@ -51,7 +51,7 @@ for x in range(height):
 print("\n")
 
 ser = serial.Serial(
-    port='COM3',
+    port='COM16',
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
@@ -65,6 +65,8 @@ s = input('Write down Mode : ')
 def receive_ack():
 
     numOfLines = 0
+
+
     while True:
         response = ser.readline()
         numOfLines = numOfLines + 1
