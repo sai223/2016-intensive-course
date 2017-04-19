@@ -6,10 +6,10 @@ void setup() {
 	system_init();
 	delay_init(); 
 	artist_usart_configure(&(artist_back.usart_instance));
-	artist_motor_configure(&(artist_back.motor_instance_1),
+	artist_motor_configure(&(artist_back.motor_left_side),
 				CONF_ARTIST_MOTOR_1_PWM_PIN, CONF_ARTIST_MOTOR_1_PWM_MUX,
 				CONF_ARTIST_MOTOR_1_PWM_CHANNEL, CONF_ARTIST_MOTOR_1_PWM_OUTPUT);
-	artist_motor_configure(&(artist_back.motor_insntace_2),
+	artist_motor_configure(&(artist_back.motor_right_side),
 				CONF_ARTIST_MOTOR_2_PWM_PIN, CONF_ARTIST_MOTOR_2_PWM_MUX ,
 				CONF_ARTIST_MOTOR_2_PWM_CHANNEL, CONF_ARTIST_MOTOR_2_PWM_OUTPUT); 
 	artist_motor_pwm_configure(&artist_back);

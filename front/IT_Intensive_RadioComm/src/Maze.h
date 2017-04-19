@@ -11,8 +11,8 @@
 #ifndef __MAZE_H__ 
 #define __MAZE_H__ 
 
-enum MAZE_STATUS {
-	STRIGHT, 
+enum DIRECTION_STATUS {
+	STRAIGHT, 
 	LEFT,
 	RIGHT,
 	STOP, 
