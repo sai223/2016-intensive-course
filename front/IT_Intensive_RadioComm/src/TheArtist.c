@@ -24,7 +24,6 @@ void artist_ultrasonic_tc_configure() {
 
 void usart_read_callback(struct usart_module * const usart_instance)
 {
-	printf("1test");  
 	switch(rx_buffer[0]) {
 		case 'c' : 
 		break; 
@@ -144,19 +143,30 @@ void callbacks (void) {
 	// [ultra sonic]
 	static uint16_t ultrasonic_counter		= 0;
 	static uint16_t maze_counter			= 0; 
+	static uint16_t pause_counter			= 0;
 	ultrasonic_counter ++;
-	maze_counter ++; 
-	
+	maze_counter ++;
+	pause_counter ++;
+	printf(">>>>>>>>> %d %d <<<<<<<<<<\n", maze_counter, pause_counter);	
 	if (ultrasonic_counter > 5) {
 		artist_ultrasonic_update();
 		ultrasonic_counter = 0; 
 	}
-	
-	if (maze_counter > 30) {
-		artist_do_maze(); 
-		maze_counter = 0; 
+
+	if(maze_counter > 20){
+		printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+		if(artist_front.maze_status != STOP){
+			artist_pause_maze();
+			pause_counter = 0;
+		}
 	}
-	
+	if (pause_counter > 60) {
+		printf("??????????????????????????????????????????????????\n");
+		if(artist_front.maze_status == STOP){
+			artist_do_maze(); 
+			maze_counter = 0;
+		}
+	}
 	// ! [ultra sonic]
 }
 void artist_configure_tc_callbacks(void)
