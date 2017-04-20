@@ -42,9 +42,6 @@
 #include "systimer.h"
 
 static SYS_Timer_t sendT;
-static SYS_Timer_t sendStart;
-
-static SYS_Timer_t sendF;
 static SYS_Timer_t sendM;
 
 struct usart_module usart_instance;
@@ -97,11 +94,29 @@ void configure_usart(void)
 	usart_enable_transceiver(&usart_instance, USART_TRANSCEIVER_RX);
 }
 
-static bool receivePKT(NWK_DataInd_t *ind) {
-	
-	printf("data:%s\n", ind->data);
 
+int line_count = 0;
+static bool receivePKT(NWK_DataInd_t *ind) {
 	LED_Toggle(LED0);
+	printf("%s\n", ind->data);
+	
+	if(!strcmp(ind->data, "LNOK\0")) {
+		line_count++;
+		if(line_count == image_frame.height + 1) {
+			SYS_TimerStop(&sendT);
+			line_count = 0;
+		}
+	}
+	
+	else if(!strcmp(ind->data, "NACK\0")) {
+		line_count++;		
+	}
+	
+	else if(!strcmp(ind->data, "MDOK\0")) {
+		
+	}
+	
+
 	return true;
 }
 
@@ -129,7 +144,7 @@ static void sendArtistMode(void) {
 	sendBusy = true;
 }
 
-int line_count = 0;
+
 static void sendArtistPKT(void) {
 	if(sendBusy)
 	return;
@@ -145,11 +160,7 @@ static void sendArtistPKT(void) {
 	//printf("sendPKT : %d\n", line_count);
 	sendBusy = true;
 	printf("%d complete\n", line_count);
-	line_count++;
-	if(line_count == image_frame.height + 1) {
-		SYS_TimerStop(&sendT);
-		line_count = 0;
-	}
+	//line_count++;
 }
 
 static void radioInit(void) {
@@ -159,11 +170,11 @@ static void radioInit(void) {
 	PHY_SetRxState(true);
 	NWK_OpenEndpoint(APP_ENDPOINT, receivePKT);
 	
-	sendT.interval = 600; //interval 200ms 한번, periodic 200ms 간격으로 계속 쏘는거
+	sendT.interval = 400; //interval 200ms 한번, periodic 200ms 간격으로 계속 쏘는거
 	sendT.mode =SYS_TIMER_PERIODIC_MODE;
 	sendT.handler = sendArtistPKT;
 	
-	sendM.interval = 300;
+	sendM.interval = 200;
 	sendM.mode = SYS_TIMER_INTERVAL_MODE;
 	sendM.handler = sendArtistMode;
 }
@@ -296,6 +307,5 @@ int main (void)
 		else if(artistMode[4] == 0x04) {
 			SYS_TimerStart(&sendM);
 		}
-
 	}
 }

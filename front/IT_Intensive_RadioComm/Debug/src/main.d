@@ -150,7 +150,9 @@ src/main.d src/main.o: ../src/main.c ../src/TheArtist.h ../src/asf.h \
  ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sys.h \
  ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h \
  ../src/Motor.h ../src/UltraSonic.h ../src/Maze.h ../src/Radio.h \
- ../src/config/conf_radio.h
+ ../src/config/conf_radio.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysTimer.h \
+ ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/systimer.h
 
 ../src/TheArtist.h:
 
@@ -475,3 +477,7 @@ d:\atmel\ studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\
 ../src/Radio.h:
 
 ../src/config/conf_radio.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysTimer.h:
+
+../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/systimer.h:

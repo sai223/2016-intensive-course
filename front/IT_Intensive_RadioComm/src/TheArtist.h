@@ -21,6 +21,8 @@
 #include "UltraSonic.h"
 #include "Maze.h" 
 #include "Radio.h"
+#include "systimer.h"
+
 
 #define		MAX_RX_BUFFER_LENGTH	5
 volatile	uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];

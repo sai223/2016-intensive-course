@@ -1,7 +1,7 @@
 from PIL import Image
 import serial
 
-img = Image.open("seoul.png")
+img = Image.open("ajou.png")
 print(img.size)
 
 height = img.size[1]
@@ -51,7 +51,7 @@ for x in range(height):
 print("\n")
 
 ser = serial.Serial(
-    port='COM17',
+    port='COM16',
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
