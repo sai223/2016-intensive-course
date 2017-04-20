@@ -51,7 +51,7 @@ void setup(void) {
 	usart_read_buffer_job( &(artist_front.usart_instance),
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
 	
-	//radioInit();  
+	radioInit();  
 	
 	printf("front node setup complete\n"); 
 	
@@ -60,7 +60,7 @@ void setup(void) {
 /*                                                                      */
 /************************************************************************/
 void loop(void) {
-	//SYS_TaskHandler();  
+	SYS_TaskHandler();  
 }
 /************************************************************************/
 /*                                                                      */

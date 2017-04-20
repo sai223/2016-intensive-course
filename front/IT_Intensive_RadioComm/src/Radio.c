@@ -9,7 +9,7 @@
 int line_num = 0;
 
  bool receivePKT(NWK_DataInd_t *ind) {	 
-	 switch(artist_front.state) {
+	 switch(artist_front.maze_status) {
 		 
 	 }
 	return true;

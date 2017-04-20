@@ -42,11 +42,10 @@ typedef struct Artist_Front{
 	float left_distance; 
 	float right_distance; 
 	
-<<<<<<< HEAD
-	enum artist_state		state; 
-=======
->>>>>>> Acka
+
+	enum artist_state state; 
 	enum DIRECTION_STATUS maze_status;
+
 	
 }Artist_Front;
 
