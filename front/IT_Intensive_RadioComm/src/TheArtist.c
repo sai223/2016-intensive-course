@@ -153,23 +153,23 @@ void callbacks (void) {
 		ultrasonic_counter = 0; 
 	}
 
-// 	if(maze_counter > 30){
-// 		artist_do_maze();
-// 		maze_counter = 0;
+	if(maze_counter > 30){
+		artist_do_maze();
+		maze_counter = 0;
+	}
+// 	if(maze_counter > 40){
+// 		if(artist_front.maze_status != STOP){
+// 			printf("STOP\n");
+// 			artist_pause_maze();
+// 			pause_counter = 0;
+// 		}
 // 	}
-	if(maze_counter > 20){
-		if(artist_front.maze_status != STOP){
-			printf("STOP\n");
-			artist_pause_maze();
-			pause_counter = 0;
-		}
-	}
-	if (pause_counter > 10) {
-		if(artist_front.maze_status == STOP){
-			artist_do_maze(); 
-			maze_counter = 0;
-		}
-	}
+// 	if (pause_counter > 20) {
+// 		if(artist_front.maze_status == STOP){
+// 			artist_do_maze(); 
+// 			maze_counter = 0;
+// 		}
+// 	}
 	// ! [ultra sonic]
 }
 void artist_configure_tc_callbacks(void)

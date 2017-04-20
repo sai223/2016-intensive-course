@@ -45,11 +45,22 @@ void artist_do_maze (void) {
 	if(past_distance.direction == RIGHT || past_distance.direction == LEFT){
 		artist_front.maze_status = STRAIGHT;
 	}
-	else if(artist_front.right_distance > MAZE_RIGHT_DISTANCE_UPPERBOUND){
+	else if(artist_front.center_distance < MAZE_FRONT_WALL_EXIST_DETERMINATE){
+		artist_front.maze_status = LEFT;
+	}
+	else if(artist_front.left_distance < MAZE_LEFT_DISTANCE_LOWERBOUND
+		&& artist_front.right_distance < MAZE_RIGHT_DISTANCE_UPPERBOUND){
+		artist_front.maze_status = STRAIGHT;		
+	}
+	else if(artist_front.left_distance > MAZE_NOTHING_LOWERBOUND 
+		&& artist_front.right_distance > MAZE_NOTHING_LOWERBOUND){
+		artist_front.maze_status = STRAIGHT;
+	}
+	else if(artist_front.left_distance < MAZE_LEFT_DISTANCE_LOWERBOUND){
 		artist_front.maze_status = RIGHT;
 	}
-	else if(artist_front.center_distance <= MAZE_FRONT_WALL_EXIST_DETERMINATE){
-		artist_front.maze_status = LEFT;
+	else if(artist_front.right_distance > MAZE_RIGHT_DISTANCE_UPPERBOUND){
+		artist_front.maze_status = RIGHT;
 	}
 	else if(artist_front.right_distance < MAZE_RIGHT_DISTANCE_LOWERBOUND){
 		artist_front.maze_status = LEFT;

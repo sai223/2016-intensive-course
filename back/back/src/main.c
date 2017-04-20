@@ -19,8 +19,10 @@ void setup() {
 	// [SYSTEM INITIALIZE] 
 
 	// [listen on RX buffer]
+	while(true){
 	usart_read_buffer_job(&(artist_back.usart_instance),
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
+	}
 	// ! [listen on RX buffer]
 	
 	printf("back node setup complete\n"); 
