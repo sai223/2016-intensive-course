@@ -12,6 +12,7 @@
 
 
 #include "config/conf_the_artist_back.h"
+#include "config/conf_line_trace.h"
 #include "Motor.h"
 
 #define		MAX_RX_BUFFER_LENGTH	5
