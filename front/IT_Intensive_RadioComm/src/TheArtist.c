@@ -24,10 +24,7 @@ void artist_ultrasonic_tc_configure() {
 
 void usart_read_callback(struct usart_module * const usart_instance)
 {
-	printf("1test");  
 	switch(rx_buffer[0]) {
-		case 'c' : 
-		break; 
 		case 'w' :
 		usart_write_buffer_job(usart_instance, "mw\0\0\0", MAX_RX_BUFFER_LENGTH);
 		break; 
@@ -153,7 +150,7 @@ void callbacks (void) {
 	}
 	
 	if (maze_counter > 10) {
-	//	artist_do_maze(); 
+		//artist_do_maze(); 
 		maze_counter = 0; 
 	}
 	

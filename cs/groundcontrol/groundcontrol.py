@@ -51,7 +51,7 @@ for x in range(height):
 print("\n")
 
 ser = serial.Serial(
-    port='COM16',
+    port='COM17',
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,

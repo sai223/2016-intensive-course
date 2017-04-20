@@ -53,7 +53,7 @@ void setup(void) {
 	
 	radioInit();  
 	
-	printf("front node setup complete\n"); 
+	//printf("front node setup complete\n"); 
 	
 }
 /************************************************************************/

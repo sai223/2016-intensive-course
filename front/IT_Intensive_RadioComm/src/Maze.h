@@ -11,6 +11,7 @@
 #ifndef __MAZE_H__ 
 #define __MAZE_H__ 
 
+
 enum DIRECTION_STATUS {
 	STRAIGHT, 
 	LEFT,

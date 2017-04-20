@@ -144,6 +144,7 @@ static void sendArtistPKT(void) {
 	
 	//printf("sendPKT : %d\n", line_count);
 	sendBusy = true;
+	printf("%d complete\n", line_count);
 	line_count++;
 	if(line_count == image_frame.height + 1) {
 		SYS_TimerStop(&sendT);
@@ -158,11 +159,11 @@ static void radioInit(void) {
 	PHY_SetRxState(true);
 	NWK_OpenEndpoint(APP_ENDPOINT, receivePKT);
 	
-	sendT.interval = 200; //interval 200ms 한번, periodic 200ms 간격으로 계속 쏘는거
+	sendT.interval = 600; //interval 200ms 한번, periodic 200ms 간격으로 계속 쏘는거
 	sendT.mode =SYS_TIMER_PERIODIC_MODE;
 	sendT.handler = sendArtistPKT;
 	
-	sendM.interval = 100;
+	sendM.interval = 300;
 	sendM.mode = SYS_TIMER_INTERVAL_MODE;
 	sendM.handler = sendArtistMode;
 }

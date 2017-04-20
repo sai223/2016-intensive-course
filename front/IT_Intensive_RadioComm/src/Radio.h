@@ -12,9 +12,13 @@
 #include "TheArtist.h"
 #include "config/conf_radio.h" 
 
-uint8_t r_data[60][51]; //50
-uint8_t t_data[51];  
+#define MAX_FRAME_SIZE 30
+#define ARTIST_FRONT_ADDR 0x0B
+#define ARTIST_GROUND_ADDR 0x0A
+#define ARTIST_CHANNEL 0x0E
 
+uint8_t r_data[200][MAX_FRAME_SIZE + 1]; //50  
+uint8_t t_data[MAX_FRAME_SIZE];
 
  bool receivePKT(NWK_DataInd_t *ind); 
  void radioInit(void);  
