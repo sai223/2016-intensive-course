@@ -157,7 +157,7 @@ void callbacks (void) {
 // 		artist_do_maze();
 // 		maze_counter = 0;
 // 	}
-	if(maze_counter > 15){
+	if(maze_counter > 20){
 		if(artist_front.maze_status != STOP){
 			printf("STOP\n");
 			artist_pause_maze();

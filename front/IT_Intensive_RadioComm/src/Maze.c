@@ -10,6 +10,7 @@
 
 void artist_init_maze (void) {
 	artist_front.maze_status = STOP;
+	past_distance.direction = STOP;
 }
 
 /*
@@ -41,14 +42,8 @@ void legacy_maze1(void){
 */
 
 void artist_do_maze (void) {
-	if(artist_front.maze_status == RIGHT && past_distance.right_distance + 2 < artist_front.right_distance){
-		artist_front.maze_status = LEFT;
-	}
-	else if(artist_front.maze_status != STOP 
-		&& artist_front.right_distance < past_distance.right_distance 
-		&& MAZE_RIGHT_DISTANCE_LOWERBOUND < artist_front.right_distance 
-		&& artist_front.right_distance < MAZE_RIGHT_DISTANCE_UPPERBOUND){
-		artist_front.maze_status = artist_front.maze_status;
+	if(past_distance.direction == RIGHT || past_distance.direction == LEFT){
+		artist_front.maze_status = STRAIGHT;
 	}
 	else if(artist_front.right_distance > MAZE_RIGHT_DISTANCE_UPPERBOUND){
 		artist_front.maze_status = RIGHT;
@@ -63,6 +58,7 @@ void artist_do_maze (void) {
 		artist_front.maze_status = STRAIGHT;
 	}
 	
+	past_distance.direction = artist_front.maze_status;
 	past_distance.left_distance = artist_front.left_distance;
 	past_distance.center_distance = artist_front.center_distance;
 	past_distance.right_distance = artist_front.right_distance;
