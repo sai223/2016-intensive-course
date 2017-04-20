@@ -142,11 +142,21 @@ void artist_scheduler_tc_configure() {
 enum artist_state do_state_maze() {
 	// [ultra sonic]
 	static uint16_t ultrasonic_counter		= 0;
+<<<<<<< HEAD
 	ultrasonic_counter ++;
+=======
+	static uint16_t maze_counter			= 0; 
+	static uint16_t pause_counter			= 0;
+	ultrasonic_counter ++;
+	maze_counter ++;
+	pause_counter ++;
+
+>>>>>>> Acka
 	if (ultrasonic_counter > 5) {
 		artist_ultrasonic_update();
 		ultrasonic_counter = 0;
 	}
+<<<<<<< HEAD
 	
 	
 	
@@ -166,6 +176,26 @@ enum artist_state do_state_maze() {
 	
 	#endif
 	
+=======
+
+// 	if(maze_counter > 30){
+// 		artist_do_maze();
+// 		maze_counter = 0;
+// 	}
+	if(maze_counter > 15){
+		if(artist_front.maze_status != STOP){
+			printf("STOP\n");
+			artist_pause_maze();
+			pause_counter = 0;
+		}
+	}
+	if (pause_counter > 10) {
+		if(artist_front.maze_status == STOP){
+			artist_do_maze(); 
+			maze_counter = 0;
+		}
+	}
+>>>>>>> Acka
 	// ! [ultra sonic]
 }
 enum artist_state do_state_tracing_line() {}
