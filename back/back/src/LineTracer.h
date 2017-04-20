@@ -9,8 +9,6 @@
 #ifndef LINETRACER_H_
 #define LINETRACER_H_
 
-#include <asf.h>
-
 #include "TheArtist.h"
 
 void line_sensor_init(void);

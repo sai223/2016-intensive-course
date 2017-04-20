@@ -8,19 +8,10 @@
 
 int line_num = 0;
 
- bool receivePKT(NWK_DataInd_t *ind) {
-	//printf("receivePKT %d\n", line_num);
-	/*  
-	printf("\n");
-	for(int i = 0; i<51;i++) {
-		r_data[line_num][i] = ind->data[i];
-		printf("%d ", r_data[line_num][i]);
-	}
-
-	LED_Toggle(LED0);
-	line_num++;
-	*/  
-	//printf("%s", ind->data);   
+ bool receivePKT(NWK_DataInd_t *ind) {	 
+	 switch(artist_front.state) {
+		 
+	 }
 	return true;
 }
 

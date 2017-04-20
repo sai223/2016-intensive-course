@@ -1,6 +1,10 @@
-*/*.d
-*/*.o
-*/Makefile 
+**/*.d
+**/*.o
+**/*.elf
+**/*.hex
+**/*.map
+**/*.srec
+**/*.lss
+**/Makefile 
 */*.atsuo
-*.atsuo
-
+**/.atsuo

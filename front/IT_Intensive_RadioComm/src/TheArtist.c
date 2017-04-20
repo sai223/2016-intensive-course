@@ -8,7 +8,11 @@
 
 #include "TheArtist.h"
 
+
+void artist_state_init() {	artist_front.state = WAIT;	}
+
 void artist_ultrasonic_tc_configure() {
+	
 	struct tc_config config;
 	
 	tc_get_config_defaults(&config);
@@ -27,8 +31,8 @@ void usart_read_callback(struct usart_module * const usart_instance)
 	switch(rx_buffer[0]) {
 		case 'w' :
 		usart_write_buffer_job(usart_instance, "mw\0\0\0", MAX_RX_BUFFER_LENGTH);
-		break; 
-		case ' ' : 
+		break;
+		case ' ' :
 		usart_write_buffer_job(usart_instance, "m \0\0\0", MAX_RX_BUFFER_LENGTH);
 		break;
 	}
@@ -37,10 +41,7 @@ void usart_read_callback(struct usart_module * const usart_instance)
 	
 
 }
-void usart_write_callback(struct usart_module *const usart_module)
-{
-	
-}
+void usart_write_callback(struct usart_module *const usart_module){}
 
 
 void configure_usart_callbacks(struct usart_module * usart_instance)
@@ -137,24 +138,51 @@ void artist_scheduler_tc_configure() {
 	//! [setup_enable]
 }
 
-void callbacks (void) {
+
+enum artist_state do_state_maze() {
 	// [ultra sonic]
 	static uint16_t ultrasonic_counter		= 0;
-	static uint16_t maze_counter			= 0; 
 	ultrasonic_counter ++;
-	maze_counter ++; 
-	
 	if (ultrasonic_counter > 5) {
 		artist_ultrasonic_update();
-		ultrasonic_counter = 0; 
+		ultrasonic_counter = 0;
 	}
 	
+	
+	
+	static uint16_t maze_counter = 0;
+	maze_counter ++;
 	if (maze_counter > 10) {
-		artist_do_maze(); 
-		maze_counter = 0; 
+		artist_do_maze();
+		maze_counter = 0;
 	}
+	
+	
+	#ifdef _ULTRASONIC_DEBUG_
+	
+	static ultrasonic_counter_debug = 0;
+	ultrasonic_counter_debug++;
+	if (ultrasonic_counter > 20) {artist_print_ultrasonic_value();}
+	
+	#endif
 	
 	// ! [ultra sonic]
+}
+enum artist_state do_state_tracing_line() {}
+enum artist_state do_state_wait() {}
+
+void callbacks (void) {
+	
+	switch (artist_front.state) {
+		case WAIT:
+		break;
+		case DOING_MAZE:
+		do_state_maze();
+		break;
+		case TRACING_LINE:
+		do_state_tracing_line();
+		break;
+	}
 }
 void artist_configure_tc_callbacks(void)
 {

@@ -46,9 +46,8 @@ void find_line(void){
 
 void line_tracing(void){
 	
-	//printf("t");
 	uint8_t line_value = line_sensor_read();
-	if ((line_value& 0X01110) == CONF_ARTIST_LINE_LOCATED_CENTER_2) {
+	if ((line_value& 0X01110 ) == CONF_ARTIST_LINE_LOCATED_CENTER_2) {
 		artist_motor_forward(&(artist_back.motor_left_side));
 		artist_motor_forward(&(artist_back.motor_right_side));
 	}

@@ -6,8 +6,8 @@
  */ 
 
 
-#ifndef RADIO_H_
-#define RADIO_H_
+#ifndef _RADIO_H_
+#define _RADIO_H_
 
 #include "TheArtist.h"
 #include "config/conf_radio.h" 
@@ -24,4 +24,13 @@ uint8_t t_data[51];
  void sendPKT(void);  
 
 
-#endif /* RADIO_H_ */
+struct image_frame {
+	uint8_t height;
+	uint8_t width;
+};
+
+//struct fsm_radio_state { };
+
+
+
+#endif /* _RADIO_H_ */

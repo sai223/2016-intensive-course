@@ -22,9 +22,11 @@
 #include "Maze.h" 
 #include "Radio.h"
 
-#define		MAX_RX_BUFFER_LENGTH	5
-volatile	uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];
-
+enum artist_state {
+	WAIT,
+	DOING_MAZE,
+	TRACING_LINE
+};
 
 typedef struct Artist_Front{
 	struct tc_module				tc_instance_ultrasonic;
@@ -40,12 +42,13 @@ typedef struct Artist_Front{
 	float left_distance; 
 	float right_distance; 
 	
+	enum artist_state		state; 
 	enum DIRECTION_STATUS maze_status;
 	
 }Artist_Front;
 
 
-
+void artist_state_init(void);  
 void artist_usart_configure(struct usart_module * usart_instance);
 void artist_motor_pwm_configure(struct Artist_Front * const artist); 
 void artist_ultrasonic_tc_configure(void);
@@ -55,5 +58,10 @@ void artist_ultrasonic_update(void);
 
 // one instance
 struct Artist_Front artist_front;
+
+
+#define		MAX_RX_BUFFER_LENGTH	5
+volatile	uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];
+
 
 #endif
