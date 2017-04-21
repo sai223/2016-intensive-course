@@ -17,3 +17,9 @@
 #define		CONF_ARTIST_ULTRASONIC_THRESHOLD			4.0
 
 
+
+#define		MAX_FRAME_SIZE								30
+#define		MAX_ACK_SIZE								5
+#define		ARTIST_FRONT_ADDR							0x0B
+#define		ARTIST_GROUND_ADDR							0x0A
+#define		ARTIST_CHANNEL								0x0E

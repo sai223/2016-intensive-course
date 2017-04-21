@@ -168,20 +168,22 @@ enum artist_state do_state_maze() {
 	
 
 	// ! [ultra sonic]
+	return DOING_MAZE; 
 }
-enum artist_state do_state_tracing_line() {}
-enum artist_state do_state_wait() {}
+enum artist_state do_state_tracing_line() { return TRACING_LINE; }
+enum artist_state do_state_wait() {return WAIT; }
 
 void callbacks (void) {
 	
 	switch (artist_front.state) {
 		case WAIT:
+		artist_front.state = do_state_wait();
 		break;
 		case DOING_MAZE:
-		do_state_maze();
+		artist_front.state = do_state_maze();
 		break;
 		case TRACING_LINE:
-		do_state_tracing_line();
+		artist_front.state = do_state_tracing_line();
 		break;
 	}
 }

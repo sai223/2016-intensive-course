@@ -894,9 +894,6 @@
     <None Include="src\config\conf_hw_timer.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="AVR2130_LWMesh_Developer_Guide_v1.2.1.pdf">
-      <SubType>compile</SubType>
-    </None>
     <None Include="src\ASF\sam0\utils\cmsis\samr21\include\instance\nvmctrl.h">
       <SubType>compile</SubType>
     </None>
