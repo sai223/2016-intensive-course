@@ -7320,7 +7320,7 @@ static inline void system_interrupt_enable_global(void)
 
 	// [listen on RX buffer]
 	while(true){
-	usart_read_buffer_job(&(artist_back.usart_instance),
+		usart_read_buffer_job(&(artist_back.usart_instance),
     1e06:	4e0b      	ldr	r6, [pc, #44]	; (1e34 <setup+0x74>)
     1e08:	4d05      	ldr	r5, [pc, #20]	; (1e20 <setup+0x60>)
     1e0a:	4c0b      	ldr	r4, [pc, #44]	; (1e38 <setup+0x78>)
