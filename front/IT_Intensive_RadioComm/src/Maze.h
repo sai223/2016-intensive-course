@@ -37,6 +37,3 @@ void artist_do_maze (void);
 void artist_pause_maze(void);
 
 #endif 
-
-
- 
