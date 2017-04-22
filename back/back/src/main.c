@@ -18,11 +18,6 @@ void setup() {
 	
 	// [SYSTEM INITIALIZE] 
 
-	// [listen on RX buffer]
-	usart_read_buffer_job(&(artist_back.usart_instance),
-	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
-	// ! [listen on RX buffer]
-	
 	printf("back node setup complete\n"); 
 }
 
@@ -30,7 +25,12 @@ void loop() {
 	/*
 	if (artist_back.line_tracing_run) {
 		line_tracing();  
-	}*/  
+	}*/
+	// [listen on RX buffer]
+	usart_read_buffer_job(&(artist_back.usart_instance),
+	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
+	// ! [listen on RX buffer]
+	
 }
 
 int main (void)

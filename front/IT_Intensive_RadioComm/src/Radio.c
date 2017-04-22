@@ -17,20 +17,34 @@ void artist_radio_configure() {
 }
 
 void handle_recvMode(NWK_DataInd_t *ind) {
-	//printf("gogo!\n");
+	//printf("gogo!\n");LED_Toggle(LED0);
+	
 	if(ind->data[0] == 0x01 && ind->data[1] == 0x02) {
 		switch(ind->data[4]) { 
 			case 0x00 : //Stop
-			
+				printf("STOP (WAIT)");
+				artist_front.state = WAIT;  
+				for (int i =0 ; i < 50; i ++)
+								usart_write_buffer_job(
+								&(artist_front.usart_instance),
+								 "m \0\0\0", MAX_RX_BUFFER_LENGTH);
+				SYS_TimerStart(&sendM);
 				break;
 			case 0x01 : //Go forward
+				printf("1\n"); 
 				break;
 			case 0x02 : //Move 360 degree
 				break;
 			case 0x03 : //Draw
+
 				printf("DRAW MODE\n");
 				my_state = RECVFRAME;
 				artist_front.state = TRACING_LINE;
+				artist_front.state = WAIT;
+				for (int i =0 ; i < 10; i ++)
+				usart_write_buffer_job(
+				&(artist_front.usart_instance),
+				"m \0\0\0", MAX_RX_BUFFER_LENGTH);
 				SYS_TimerStart(&sendM);
 				break;
 			case 0x04 :	//Maze
@@ -38,6 +52,14 @@ void handle_recvMode(NWK_DataInd_t *ind) {
 				artist_front.state = DOING_MAZE; 
 				SYS_TimerStart(&sendM);
 				break;	
+			default:
+				printf("unknowm message (WAIT)");
+				artist_front.state = WAIT;
+				for (int i =0 ; i < 50; i ++)
+				usart_write_buffer_job(
+				&(artist_front.usart_instance),
+				"m \0\0\0", MAX_RX_BUFFER_LENGTH);
+				printf("undefined message\n");
 		}
 	}	
 }
@@ -83,8 +105,7 @@ void handle_recvLine(NWK_DataInd_t *ind) {
 }
 
 bool receivePKT(NWK_DataInd_t *ind) {
-	LED_Toggle(LED0);
-	
+	printf("%s", ind->data);  
 	switch (my_state) {
 		case RECVMODE :
 			handle_recvMode(ind);

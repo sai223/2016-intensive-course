@@ -168,23 +168,27 @@ enum artist_state do_state_maze() {
 	
 
 	// ! [ultra sonic]
-	return DOING_MAZE; 
+	return DOING_MAZE;
 }
 enum artist_state do_state_tracing_line() { return TRACING_LINE; }
 enum artist_state do_state_wait() {return WAIT; }
 
 void callbacks (void) {
 	
+	
 	switch (artist_front.state) {
-		case WAIT:
-		artist_front.state = do_state_wait();
-		break;
+		
 		case DOING_MAZE:
 		artist_front.state = do_state_maze();
 		break;
+		
 		case TRACING_LINE:
 		artist_front.state = do_state_tracing_line();
 		break;
+		
+		case WAIT:
+		default : 
+		artist_front.state = do_state_wait();
 	}
 }
 void artist_configure_tc_callbacks(void)

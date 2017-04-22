@@ -51,7 +51,7 @@ for x in range(height):
 print("\n")
 
 ser = serial.Serial(
-    port='COM3',
+    port='COM4',
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
@@ -65,6 +65,8 @@ s = input('Write down Mode : ')
 def receive_ack():
 
     numOfLines = 0
+
+
     while True:
         response = ser.readline()
         numOfLines = numOfLines + 1
@@ -93,7 +95,10 @@ if ser.isOpen():
     ser.flushInput() #flush input buffer, discarding all its contents
     ser.flushOutput()#flush output buffer, aborting current output
 
-    if(s == "maze"):
+    if(s == "wait"):
+        ser.write(b'wait\0')
+        receive_ack()
+    elif(s == "maze"):
         ser.write(b'maze\0')
         receive_ack()
     elif(s == "draw"):
