@@ -20,6 +20,7 @@ volatile	uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];
 
 
 typedef struct Artist_Back{
+	struct tc_module			tc_instance_motor; 
 	struct tcc_module			tcc_instance;
 	struct usart_module			usart_instance; 
 	struct artist_motor_module  motor_left_side;
@@ -33,7 +34,8 @@ typedef struct Artist_Back{
 
 void artist_usart_configure(struct usart_module * usart_instance);
 void artist_motor_pwm_configure(struct Artist_Back * const artist); 
-
+void artist_draw_motor_tc_configure(void);
+void artist_configure_tc_callbacks(void);
 
 
 struct Artist_Back artist_back;

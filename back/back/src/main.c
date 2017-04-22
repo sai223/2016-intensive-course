@@ -14,6 +14,9 @@ void setup() {
 				CONF_ARTIST_MOTOR_2_PWM_CHANNEL, CONF_ARTIST_MOTOR_2_PWM_OUTPUT); 
 	artist_motor_pwm_configure(&artist_back);
 	
+	artist_draw_motor_tc_configure();
+	artist_configure_tc_callbacks();
+	
 	system_interrupt_enable_global(); 
 	
 	// [SYSTEM INITIALIZE] 

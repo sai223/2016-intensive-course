@@ -70,11 +70,16 @@ void artist_do_maze (void) {
 	past_distance.center_distance = artist_front.center_distance;
 	past_distance.right_distance = artist_front.right_distance;
 	
+	#ifdef MAZE_DEBUG
+	
 	artist_print_ultrasonic_value();
 	if(artist_front.maze_status == STRAIGHT) printf("%s\n", "STRA\0");
 	else if(artist_front.maze_status == LEFT) printf("%s\n", "LEFT\0");
 	else if(artist_front.maze_status == RIGHT) printf("%s\n", "RIGH\0");
 	else printf("%s\n", "BACK\0");
+	
+	#endif
+	
 	switch (artist_front.maze_status){
 		case STRAIGHT :
 		usart_write_buffer_job(&(artist_front.usart_instance), "mw\0\0\0", MAX_RX_BUFFER_LENGTH);

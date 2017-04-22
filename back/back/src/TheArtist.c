@@ -1,20 +1,20 @@
 
 /*
- * TheArtist.c
- *
- * Created: 4/5/2017 2:49:19 PM
- *  Author: credtiger96@gmail.com 
- */ 
-#include "TheArtist.h" 
+* TheArtist.c
+*
+* Created: 4/5/2017 2:49:19 PM
+*  Author: credtiger96@gmail.com
+*/
+#include "TheArtist.h"
 #include "Motor.h"
 
 
 void usart_read_callback(struct usart_module * const usart_instance)
 {
 	//port_pin_toggle_output_level(LED_0_PIN);
-	//printf("%s\n", rx_buffer); 
+	//printf("%s\n", rx_buffer);
 	switch  (rx_buffer[0])	{
-		case 'm' : 
+		case 'm' :
 		switch (rx_buffer[1]){
 			case 'w' :
 			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STRAIGHT);
@@ -78,7 +78,7 @@ void artist_usart_configure(struct usart_module * usart_instance) {
 
 void artist_motor_pwm_configure(struct Artist_Back * const artist){
 	
-	struct tcc_config config; 
+	struct tcc_config config;
 	tcc_get_config_defaults(&config, TCC0);
 
 	config.counter.clock_source											= GCLK_GENERATOR_0;
@@ -90,13 +90,50 @@ void artist_motor_pwm_configure(struct Artist_Back * const artist){
 	config.compare.match[artist->motor_left_side.pwm_channel]				= artist->motor_left_side.pwm_val;
 	config.pins.enable_wave_out_pin[artist->motor_left_side.pwm_output]	=	true;
 	config.pins.wave_out_pin[artist->motor_left_side.pwm_output]			= artist->motor_left_side.pwm_pin_num;
-	config.pins.wave_out_pin_mux[artist->motor_left_side.pwm_output]		= artist->motor_left_side.pwm_mux_num; 
+	config.pins.wave_out_pin_mux[artist->motor_left_side.pwm_output]		= artist->motor_left_side.pwm_mux_num;
 	
 	config.compare.match[artist->motor_right_side.pwm_channel]				= artist->motor_right_side.pwm_val;
 	config.pins.enable_wave_out_pin[artist->motor_right_side.pwm_output]		= true;
 	config.pins.wave_out_pin[artist->motor_right_side.pwm_output]			= artist->motor_right_side.pwm_pin_num;
-	config.pins.wave_out_pin_mux[artist->motor_right_side.pwm_output]		= artist->motor_right_side.pwm_mux_num; 
+	config.pins.wave_out_pin_mux[artist->motor_right_side.pwm_output]		= artist->motor_right_side.pwm_mux_num;
 
 	tcc_init(&(artist->tcc_instance), TCC0, &config);
 	tcc_enable(&(artist->tcc_instance));
+}
+void artist_draw_motor_tc_configure(void) {
+	//! [setup_config]
+	struct tc_config config_tc;
+	//! [setup_config]
+	//! [setup_config_defaults]
+	tc_get_config_defaults(&config_tc);
+	//! [setup_config_defaults]
+
+	//! [setup_change_config]
+	config_tc.counter_size = TC_COUNTER_SIZE_8BIT;
+	config_tc.clock_source = GCLK_GENERATOR_3;
+	config_tc.clock_prescaler = TC_CLOCK_PRESCALER_DIV1024; //
+	config_tc.counter_8_bit.period = 50;
+	//config_tc.counter_8_bit.compare_capture_channel[0] = 5;
+	//config_tc.counter_8_bit.compare_capture_channel[1] = 54;
+	//! [setup_change_config]
+
+	//! [20 Hz setup_set_config]
+	tc_init(&(artist_back.tc_instance_motor), TC4, &config_tc);
+	//! [setup_set_config]
+
+	//! [setup_enable]
+	tc_enable(&(artist_back.tc_instance_motor));
+	//! [setup_enable]
+	
+}
+void callbacks (void) {
+	printf("."); 
+}
+
+void artist_configure_tc_callbacks(void)
+{
+	tc_register_callback(&(artist_back.tc_instance_motor), callbacks ,
+	TC_CALLBACK_OVERFLOW);
+	
+	tc_enable_callback(&(artist_back.tc_instance_motor), TC_CALLBACK_OVERFLOW);
 }

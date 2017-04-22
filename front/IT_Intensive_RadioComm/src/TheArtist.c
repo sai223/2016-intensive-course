@@ -170,7 +170,10 @@ enum artist_state do_state_maze() {
 	// ! [ultra sonic]
 	return DOING_MAZE;
 }
-enum artist_state do_state_tracing_line() { return TRACING_LINE; }
+enum artist_state do_state_tracing_line() { 
+	usart_write_buffer_job(artist_front.usart_instance, "lg\0\0\0", MAX_RX_BUFFER_LENGTH);
+	return TRACING_LINE; 
+	}
 enum artist_state do_state_wait() {return WAIT; }
 
 void callbacks (void) {
@@ -191,6 +194,7 @@ void callbacks (void) {
 		artist_front.state = do_state_wait();
 	}
 }
+
 void artist_configure_tc_callbacks(void)
 {
 	tc_register_callback(&(artist_front.tc_instance_timer), callbacks ,
