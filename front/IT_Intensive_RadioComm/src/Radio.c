@@ -16,28 +16,51 @@ void artist_radio_configure() {
 	my_state = RECVMODE;
 }
 
+
+void artist_drawing_init(void) {
+	artist_front.state = DRAWING;
+	for (uint8_t i = 0; i < 10; i ++)
+	usart_write_buffer_job(
+	&(artist_front.usart_instance),
+	"lg\0\0\0", MAX_RX_BUFFER_LENGTH);
+}
+
+
 void handle_recvMode(NWK_DataInd_t *ind) {
 	//printf("gogo!\n");LED_Toggle(LED0);
 	
 	if(ind->data[0] == 0x01 && ind->data[1] == 0x02) {
 		switch(ind->data[4]) {
 			case 0x00 : //Stop
-			printf("STOP (WAIT)");
+			//printf("STOP (WAIT)");
+			if (artist_front.state == DRAWING) {
+				for (int i =0 ; i < 50; i ++){
+					usart_write_buffer_job(
+					&(artist_front.usart_instance),
+					"ls\0\0\0", MAX_RX_BUFFER_LENGTH);
+					usart_write_buffer_job(
+					&(artist_front.usart_instance),
+					"m \0\0\0", MAX_RX_BUFFER_LENGTH);
+				}
+			}
+			else {
+				for (int i =0 ; i < 50; i ++){
+					usart_write_buffer_job(
+					&(artist_front.usart_instance),
+					"m \0\0\0", MAX_RX_BUFFER_LENGTH);
+				}
+			}
 			artist_front.state = WAIT;
-			for (int i =0 ; i < 50; i ++)
-			usart_write_buffer_job(
-			&(artist_front.usart_instance),
-			"m \0\0\0", MAX_RX_BUFFER_LENGTH);
 			SYS_TimerStart(&sendM);
 			break;
 			case 0x01 : //Go forward
 			printf("1\n");
 			break;
+			
 			case 0x02 : //Move 360 degree
 			break;
+			
 			case 0x03 : //Data transfer
-
-			//printf("DRAW MODE\n");
 			my_state = RECVFRAME;
 			artist_front.state = WAIT;
 			for (int i =0 ; i < 10; i ++)
@@ -46,17 +69,19 @@ void handle_recvMode(NWK_DataInd_t *ind) {
 			"m \0\0\0", MAX_RX_BUFFER_LENGTH);
 			SYS_TimerStart(&sendM);
 			break;
+			
 			case 0x04 :	//Maze
 			printf("MAZE MODE\n");
 			artist_front.state = DOING_MAZE;
 			SYS_TimerStart(&sendM);
 			break;
+			
 			case 0x05 :
 			// start drawing
-			usart_write_buffer_job(
-			&(artist_front.usart_instance),
-			"ls\0\0\0", MAX_RX_BUFFER_LENGTH);
+			artist_drawing_init();
 			SYS_TimerStart(&sendM);
+			break;
+			
 			default:
 			printf("unknowm message (WAIT)");
 			artist_front.state = WAIT;
@@ -68,6 +93,7 @@ void handle_recvMode(NWK_DataInd_t *ind) {
 		}
 	}
 }
+
 
 void handle_recvFrame(NWK_DataInd_t *ind) {
 	

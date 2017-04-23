@@ -8,6 +8,20 @@
 #include "TheArtist.h"
 #include "Motor.h"
 
+void artist_drawing_init() {
+	artist_back.state = DRAW;
+	artist_back.draw_state = TRACING_LINE;
+}
+void artist_drawing_stop() {
+	artist_back.state = STOP;
+	artist_back.draw_state = WAIT;
+	artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
+}
+void artist_status_init() {
+	//printf("state_init : draw\n");
+	artist_back.state = WAIT;
+	artist_back.draw_state = WAIT;
+}
 
 void usart_read_callback(struct usart_module * const usart_instance)
 {
@@ -31,13 +45,24 @@ void usart_read_callback(struct usart_module * const usart_instance)
 			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
 			break;
 		}
-		break;		
+		break;
 		/************************************************************************/
 		/*                                                                      */
 		/************************************************************************/
-		case 'l':  
-		usart_write_buffer_job(&artist_back.usart_instance, "l1\0\0\0", MAX_RX_BUFFER_LENGTH); 
-		break; 
+		case 'l':
+		switch(rx_buffer[1]) {
+			case 's' :  // stop
+			artist_drawing_stop();
+			break;
+			
+			case 'g' :  //go
+			artist_drawing_init();
+			break;
+			
+			case '4' : // stamping complete.
+			printf("STMPC");
+		}
+		break;
 	}
 	usart_read_buffer_job( usart_instance,
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
@@ -132,8 +157,24 @@ void artist_draw_motor_tc_configure(void) {
 	//! [setup_enable]
 	
 }
+void do_drawing() {
+	line_tracing();
+};
 void callbacks (void) {
-	// printf("."); 
+	switch (artist_back.state) {
+		case WAIT :
+		break;
+		case DRAW :
+		switch (artist_back.draw_state) {
+			case TRACING_LINE :
+			do_drawing();
+			break;
+			
+		}
+		break;
+		case MOVE :
+		break;
+	}
 }
 
 void artist_configure_tc_callbacks(void)

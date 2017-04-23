@@ -23,7 +23,6 @@ void line_sensor_init(void)
 	port_pin_set_config(PIN_PA22, &pin_conf_line[2]); //o3
 	port_pin_set_config(PIN_PA23, &pin_conf_line[3]); //o4
 	port_pin_set_config(PIN_PA15, &pin_conf_line[4]); //o5
-	artist_back.line_tracing_run = true;
 }
 
 uint8_t line_sensor_read(void){
@@ -43,10 +42,18 @@ void find_line(void){
 	artist_motor_backward(&(artist_back.motor_left_side));
 	artist_motor_backward(&(artist_back.motor_right_side));
 }
-
+void handle_lost_line (void) {
+	
+}
 void line_tracing(void){
 	
 	uint8_t line_value = line_sensor_read();
+	//printf("%5d", line_value);
+	
+	if (line_value == 0 )
+		handle_lost_line(); 	
+		
+		
 	if ((line_value& 0X01110) == CONF_ARTIST_LINE_LOCATED_CENTER_2) {
 		artist_motor_forward(&(artist_back.motor_left_side));
 		artist_motor_forward(&(artist_back.motor_right_side));
@@ -60,6 +67,5 @@ void line_tracing(void){
 	}	else if((line_value & CONF_ARTIST_LINE_LOCATED_CENTER_1) == CONF_ARTIST_LINE_LOCATED_CENTER_1){ // straight
 		artist_motor_forward(&(artist_back.motor_left_side)); 
 		artist_motor_forward(&(artist_back.motor_right_side));
-	}	else
-			find_line();
+	}
 }

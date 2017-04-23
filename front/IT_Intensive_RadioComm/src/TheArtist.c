@@ -25,25 +25,25 @@ void artist_ultrasonic_tc_configure() {
 	tc_enable(&(artist_front.tc_instance_ultrasonic));
 }
 
-
-void usart_read_callback(struct usart_module * const usart_instance)
-{
-	switch(rx_buffer[0]) {
-		case 'l' :
-		switch (rx_buffer[1]) {
-			case '1':
-			delay_ms(500);
-			usart_write_buffer_job(&artist_front.usart_instance, "lg\0\0\0", MAX_RX_BUFFER_LENGTH);
-			break;
-			case '2':
+void usart_handle_drawing() {
+		switch(rx_buffer[0]) {
+			case 'l' :
+			switch (rx_buffer[1]) {
+				case '1': // back node met drawing point
+				break;
+				case '2':
+				break;
+			}
 			break;
 		}
-		break;
-	}
+}
+void usart_read_callback(struct usart_module * const usart_instance)
+{
+	//if (artist_front.state == DRAWING) 
+	usart_handle_drawing(); 
+	
 	usart_read_buffer_job( usart_instance,
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
-	
-
 }
 void usart_write_callback(struct usart_module *const usart_module){}
 
