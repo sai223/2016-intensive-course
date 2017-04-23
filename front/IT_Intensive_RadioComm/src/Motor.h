@@ -24,4 +24,9 @@ struct artist_motor_module {
 	
 };	
 
+
+void artist_draw_motor_pwm_configure(void); 
+void artist_run_stamp(void) ;
+
+	
 #endif 

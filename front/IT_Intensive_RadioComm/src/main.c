@@ -22,7 +22,8 @@ void setup(void) {
 	artist_scheduler_tc_configure();
 	artist_configure_tc_callbacks();  
 	artist_init_maze(); 
-
+	artist_draw_motor_pwm_configure(); 
+	
 	cpu_irq_enable();
 	
 	// [ultrasonic]
@@ -53,7 +54,7 @@ void setup(void) {
 	
 	radioInit();  
 	
-	printf("f\n\0\0\0"); 
+	printf("f1234");
 	
 }
 /************************************************************************/
@@ -61,12 +62,28 @@ void setup(void) {
 /************************************************************************/
 void loop(void) {
 	
-	SYS_TaskHandler();  
-	
-	
 	usart_read_buffer_job( &(artist_front.usart_instance),
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
 	
+	SYS_TaskHandler();  
+		
+	
+	if (artist_front.running_stamp) {
+		
+		artist_run_stamp();  
+		usart_write_buffer_job(&artist_front.usart_instance, 
+		"lg\0\0\0", MAX_RX_BUFFER_LENGTH); 
+	}	
+	/*
+			tcc_set_compare_value(&artist_front.tcc_instance, LED_0_PWM4CTRL_CHANNEL, 0xafff);
+			tcc_set_compare_value(&artist_front.tcc_instance, EXT1_PWM4CTRL_0_CHANNEL, 0x431a);
+			delay_ms(2500);
+			tcc_set_compare_value(&artist_front.tcc_instance, LED_0_PWM4CTRL_CHANNEL, 0x431a);
+			tcc_set_compare_value(&artist_front.tcc_instance, EXT1_PWM4CTRL_0_CHANNEL, 0xafff);
+			delay_ms(200);
+			tcc_set_compare_value(&artist_front.tcc_instance, LED_0_PWM4CTRL_CHANNEL, 0x0000);
+			tcc_set_compare_value(&artist_front.tcc_instance, EXT1_PWM4CTRL_0_CHANNEL, 0x0000);
+			delay_ms(1000);*/
 }
 /************************************************************************/
 /*                                                                      */

@@ -71,8 +71,13 @@ void line_tracing(void){
 	static bool is_point = false; 
 	if (line_value) {
 		is_point = false; 
-		if (count > 0 && count < 10) {
-			delay_s(2); 
+		if (count > 1 && count < 10) {
+			//point detected.
+			usart_write_buffer_job(&(artist_back.usart_instance), 
+			"lp\0\0\0", MAX_RX_BUFFER_LENGTH); 
+			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
+			
+			artist_drawing_stop();
 			count = 0; 
 		}
 	}
@@ -81,7 +86,7 @@ void line_tracing(void){
 		is_point = true;
 		if (count > 10) {
 			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), BACK);
-			delay_s(2);
+			delay_ms(700);
 			count = 0;  
 		}
 		

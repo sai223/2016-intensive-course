@@ -45,7 +45,9 @@ typedef struct Artist_Front{
 
 	enum artist_state state; 
 	enum DIRECTION_STATUS maze_status;
-
+	
+	bool running_stamp; 
+	uint8_t draw_sequence_counter;  
 	
 }Artist_Front;
 

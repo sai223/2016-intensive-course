@@ -22,12 +22,11 @@ volatile	uint8_t rx_buffer[MAX_RX_BUFFER_LENGTH];
 enum artist_state{
 	WAIT,	//wait for signal
 	DRAW,	//line_tracing and stamp
-	MOVE	//for maze
 };
 enum drawing_state {
 	TRACING_LINE,	//line_tracing
 	STAMP,			//doing stamp
-//	WAITING			//the state while going to next line
+	WAITING			// waiting
 };
 /*
 enum cur_movement_state  {
@@ -59,6 +58,9 @@ void artist_motor_pwm_configure(struct Artist_Back * const artist);
 void artist_draw_motor_tc_configure(void);
 void artist_configure_tc_callbacks(void);
 
+void artist_drawing_go();
+void artist_drawing_stop();
+void artist_status_init();
 
 struct Artist_Back artist_back;
 

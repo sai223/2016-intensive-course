@@ -4,13 +4,13 @@
 
 src\Maze.c
 
+src\Motor.c
+
 src\Radio.c
 
 src\UltraSonic.c
 
 src\ASF\sam0\drivers\tcc\tcc.c
-
-src\ASF\sam0\drivers\tcc\tcc_callback.c
 
 src\TheArtist.c
 

@@ -18,6 +18,8 @@
  uint8_t nack[MAX_ACK_SIZE];
  uint8_t mdok[MAX_ACK_SIZE];
  
+ uint8_t real_image_output[48]; // temporal variable to save output.  it should be re-factored to be general. 
+  
  typedef struct Image_frame {
 	 
 	 uint8_t height;

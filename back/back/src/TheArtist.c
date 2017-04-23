@@ -8,7 +8,7 @@
 #include "TheArtist.h"
 #include "Motor.h"
 
-void artist_drawing_init() {
+void artist_drawing_go() {
 	artist_back.state = DRAW;
 	artist_back.draw_state = TRACING_LINE;
 }
@@ -16,10 +16,11 @@ void artist_drawing_stop() {
 	artist_back.state = STOP;
 	artist_back.draw_state = WAIT;
 	artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
+	artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
 }
 void artist_status_init() {
 	//printf("state_init : draw\n");
-	artist_back.state = WAIT;
+	artist_back.state = STOP;
 	artist_back.draw_state = WAIT;
 }
 
@@ -55,11 +56,11 @@ void usart_read_callback(struct usart_module * const usart_instance)
 			artist_drawing_stop();
 			break;
 			
-			case 'g' :  //go
-			artist_drawing_init();
+			case 'g' :  //go or stamping complete. 
+			artist_drawing_go();
 			break;
 			
-			case '4' : // stamping complete.
+			case '4' : // drawing complete.
 			printf("STMPC");
 		}
 		break;
@@ -171,8 +172,6 @@ void callbacks (void) {
 			break;
 			
 		}
-		break;
-		case MOVE :
 		break;
 	}
 }

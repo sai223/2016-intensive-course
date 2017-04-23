@@ -109,10 +109,7 @@ src/ASF/sam0/drivers/tcc/tcc.d src/ASF/sam0/drivers/tcc/tcc.o: \
  ../src/ASF/sam0/drivers/system/clock/clock.h \
  ../src/ASF/sam0/drivers/system/clock/gclk.h \
  ../src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da/clock_feature.h \
- ../src/ASF/sam0/drivers/system/pinmux/pinmux.h \
- ../src/ASF/sam0/drivers/system/interrupt/system_interrupt.h \
- ../src/ASF/sam0/drivers/system/interrupt/system_interrupt_samr21/system_interrupt_features.h \
- ../src/ASF/sam0/drivers/tcc/tcc_callback.h
+ ../src/ASF/sam0/drivers/system/pinmux/pinmux.h
 
 ../src/ASF/sam0/drivers/tcc/tcc.h:
 
@@ -337,9 +334,3 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da/clock_feature.h:
 
 ../src/ASF/sam0/drivers/system/pinmux/pinmux.h:
-
-../src/ASF/sam0/drivers/system/interrupt/system_interrupt.h:
-
-../src/ASF/sam0/drivers/system/interrupt/system_interrupt_samr21/system_interrupt_features.h:
-
-../src/ASF/sam0/drivers/tcc/tcc_callback.h:

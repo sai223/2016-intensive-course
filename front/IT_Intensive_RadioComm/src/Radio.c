@@ -101,7 +101,7 @@ void handle_recvFrame(NWK_DataInd_t *ind) {
 	image_frame.width = ind->data[1];
 	printf("%d %d\n", image_frame.height, image_frame.width);
 	
-	if(image_frame.height == 30 || image_frame.width == 30) {
+	if(image_frame.height == MAX_FRAME_SIZE || image_frame.width == MAX_FRAME_SIZE) {
 		SYS_TimerStart(&sendL);		my_state = RECVLINE;
 	}
 	
@@ -126,9 +126,27 @@ void handle_recvLine(NWK_DataInd_t *ind) {
 	
 	if(receivedLine == image_frame.height) {
 		my_state = RECVMODE;
+		
 		for(int i = 0; i<image_frame.height; i++) {
-			for(int j = 0; j<MAX_FRAME_SIZE + 1; j++) {
-				printf("%2d", r_data[i][j]);
+		for(int j = 0; j<MAX_FRAME_SIZE + 1; j++) {
+		printf("%2d", r_data[i][j]);
+		}
+		printf("\n");
+		}
+		
+		printf("///////////////////////////////\n");
+		for (int i =0; i < image_frame.height; i ++ ) {
+			for (int j =0; j < image_frame.width; j++ ) {
+				if (i % 2) {
+					real_image_output[i * image_frame.width + j] = r_data[i][image_frame.width - j];
+					}else{
+					real_image_output[i * image_frame.width + j] = r_data[i][j + 1];
+				}
+			}
+		}
+		for(int i = 0; i<image_frame.height; i++) {
+			for(int j = 0; j < image_frame.width ; j++) {
+				printf("%2d", real_image_output[i * image_frame.width + j]);
 			}
 			printf("\n");
 		}

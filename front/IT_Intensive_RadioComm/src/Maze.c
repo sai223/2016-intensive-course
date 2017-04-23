@@ -34,7 +34,7 @@ artist_print_ultrasonic_value();
 if(artist_front.maze_status == STRAIGHT) printf("%s\n", "STRA\0");
 else if(artist_front.maze_status == LEFT) printf("%s\n", "LEFT\0");
 else if(artist_front.maze_status == RIGHT) printf("%s\n", "RIGH\0");
-else printf("%s\n", "BACK\0");
+else printf("%s\n", "BACK\0");s
 }
 */
 void artist_do_maze (void) {
