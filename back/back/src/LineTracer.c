@@ -43,29 +43,88 @@ void find_line(void){
 	artist_motor_backward(&(artist_back.motor_right_side));
 }
 void handle_lost_line (void) {
-	
+	artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STRAIGHT);
 }
+
 void line_tracing(void){
 	
 	uint8_t line_value = line_sensor_read();
-	//printf("%5d", line_value);
+	//printf("%4d\n", line_value);
 	
+	/*
 	if (line_value == 0 )
 		handle_lost_line(); 	
 		
 		
-	if ((line_value& 0X01110) == CONF_ARTIST_LINE_LOCATED_CENTER_2) {
-		artist_motor_forward(&(artist_back.motor_left_side));
-		artist_motor_forward(&(artist_back.motor_right_side));
+	if ((line_value & 0X01110) == CONF_ARTIST_LINE_LOCATED_CENTER_2) {
+		artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STRAIGHT);
 	}
-	else if((line_value & CONF_ARTIST_MASKING_LOCATION) == CONF_ARTIST_LINE_LOCATED_LEFT ){ // turn right
-		artist_motor_backward(&(artist_back.motor_left_side));
-		artist_motor_forward(&(artist_back.motor_right_side));
-	}	else if((line_value & CONF_ARTIST_MASKING_LOCATION) == CONF_ARTIST_LINE_LOCATED_RIGHT){ // turn left		
-		artist_motor_forward(&(artist_back.motor_left_side));
-		artist_motor_backward(&(artist_back.motor_right_side));
-	}	else if((line_value & CONF_ARTIST_LINE_LOCATED_CENTER_1) == CONF_ARTIST_LINE_LOCATED_CENTER_1){ // straight
-		artist_motor_forward(&(artist_back.motor_left_side)); 
-		artist_motor_forward(&(artist_back.motor_right_side));
+	else if((line_value & CONF_ARTIST_LINE_LOCATED_CENTER_1) == CONF_ARTIST_LINE_LOCATED_CENTER_1){ // straight
+	artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STRAIGHT);
+}
+	else if((line_value & CONF_ARTIST_MASKING_LOCATION) | CONF_ARTIST_LINE_LOCATED_LEFT ){ // turn right
+		artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), RIGHT);
+	}	else if((line_value & CONF_ARTIST_MASKING_LOCATION) | CONF_ARTIST_LINE_LOCATED_RIGHT){ // turn left
+	artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), LEFT);
+	}*/ 
+	static int count = 0;  
+	static bool is_point = false; 
+	if (line_value) {
+		is_point = false; 
+		if (count > 0 && count < 10) {
+			delay_s(2); 
+			count = 0; 
+		}
 	}
+	else {
+		count++;
+		is_point = true;
+		if (count > 10) {
+			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), BACK);
+			delay_s(2);
+			count = 0;  
+		}
+		
+	}
+	switch (line_value) {
+		case 0x00:  // 00000
+		
+		artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STRAIGHT);
+		
+		break;  
+		
+		case 0x04:	// 00100
+		case 0x0E:	// 01110
+		case 0x0C: // 01100
+		case 0x06: // 00110
+		
+		artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STRAIGHT);
+		
+		break; 
+		
+		case 0x01: // 00001 
+		case 0x02: // 00010
+		case 0x03: // 00011 
+		case 0x07: // 00111
+		case 0x0F: // 01111
+		
+		artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side),LEFT );
+		
+		break;  
+		
+		case 0x10: // 10000
+		case 0x08: // 01000
+		case 0x18: // 11000
+		case 0x1C: // 11100
+		case 0x1E: // 11110 
+		
+		artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), RIGHT);
+		
+		break; 
+		
+		default :  
+		
+		artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STRAIGHT);
+		
+	}	
 }

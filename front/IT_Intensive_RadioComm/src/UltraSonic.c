@@ -81,7 +81,7 @@ float artist_ultrasonic_get_value(struct artist_ultrasonic_module * const module
 		count ++;
 		if (count > 0xFF00) return module->fliter_old_val; 
 	}
-	count =0; 
+	count = 0; 
 	start = tc_get_count_value(&(artist_front.tc_instance_ultrasonic));
 	while ((port_pin_get_input_level(module->echo_pin)))  {
 		count ++;

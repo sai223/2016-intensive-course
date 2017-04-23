@@ -56,7 +56,7 @@ void artist_do_maze (void) {
 		artist_front.maze_status = LEFT;
 		else
 		artist_front.maze_status = RIGHT;
-		count = 2;
+		count = 1;
 	}
 	else if(artist_front.center_distance < MAZE_FRONT_WALL_EXIST_DETERMINATE){
 		if (artist_front.right_distance < artist_front.left_distance)

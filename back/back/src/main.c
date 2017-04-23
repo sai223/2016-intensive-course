@@ -18,7 +18,7 @@ void setup() {
 	artist_configure_tc_callbacks();
 	
 	line_sensor_init();
-	
+	artist_status_init();
 	system_interrupt_enable_global();
 	
 	// [SYSTEM INITIALIZE]
@@ -34,7 +34,12 @@ void loop() {
 	usart_read_buffer_job(&(artist_back.usart_instance),
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
 	// ! [listen on RX buffer]
-	
+	if (artist_back.state == DRAW) {
+		artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
+		delay_ms(50);
+		line_tracing();
+		delay_ms(37);
+	}
 	
 }
 

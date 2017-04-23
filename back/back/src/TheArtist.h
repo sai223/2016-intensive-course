@@ -29,7 +29,15 @@ enum drawing_state {
 	STAMP,			//doing stamp
 //	WAITING			//the state while going to next line
 };
-
+/*
+enum cur_movement_state  {
+	STRAIGHT, 
+	RIGHT, 
+	LEFT, 
+	BACK, 
+	STOP	
+};
+*/
 typedef struct Artist_Back{
 	struct tc_module			tc_instance_motor; 
 	struct tcc_module			tcc_instance;
@@ -39,6 +47,7 @@ typedef struct Artist_Back{
 	
 	enum drawing_state draw_state;
 	enum artist_state state;
+	enum DIRECTION_STATUS direction_state;
 }Artist_Back;
 
 // one instance 
