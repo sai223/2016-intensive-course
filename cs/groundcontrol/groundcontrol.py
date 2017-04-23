@@ -1,13 +1,13 @@
 from PIL import Image
 import serial
 
-img = Image.open("ajou.png")
+img = Image.open("love.png")
 print(img.size)
 
 height = img.size[1]
 width = img.size[0]
 
-MAX_FRAME_SIZE = 30
+MAX_FRAME_SIZE = 8
 
 if(height > width):
     height = MAX_FRAME_SIZE
@@ -29,10 +29,10 @@ gray = ajou.convert("L")
 mtr = [[8 for col in range(MAX_FRAME_SIZE)]for row in range(height)]
 for x in range(width):
     for y in range(height):
-        if (gray.getpixel((x,y)) > 150):
-            mtr[y][x] = 0
-        else:
+        if (gray.getpixel((x,y)) > 50):
             mtr[y][x] = 1
+        else:
+            mtr[y][x] = 0
 
 packet = [[8 for col in range(MAX_FRAME_SIZE + 1)]for row in range(height)]
 frame = [height, width]
@@ -99,12 +99,15 @@ while(True):
         elif(s == "maze"):
             ser.write(b'maze\0')
             receive_ack()
-        elif(s == "draw"):
-            ser.write(b'draw\0')
+        elif(s == "data"):
+            ser.write(b'data\0')
             receive_ack()
             ser.write(frame)
             receive_ack()
             send_packet()
+        elif(s == "draw"):
+            ser.write(b'draw\0')
+            receive_ack()
         elif(s == "quit"):
             ser.close()
             break
