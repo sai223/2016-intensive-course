@@ -51,16 +51,13 @@ for x in range(height):
 print("\n")
 
 ser = serial.Serial(
-    port='COM4',
+    port='COM9',
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
     timeout=0.1
 )
-
-s = input('Write down Mode : ')
-
 
 def receive_ack():
 
@@ -89,27 +86,30 @@ def send_packet():
         receive_ack()
         print(x, "  complete")
 
+while(True):
+    s = input('Write down Mode : ')
+    if ser.isOpen():
 
-if ser.isOpen():
+        ser.flushInput() #flush input buffer, discarding all its contents
+        ser.flushOutput()#flush output buffer, aborting current output
 
-    ser.flushInput() #flush input buffer, discarding all its contents
-    ser.flushOutput()#flush output buffer, aborting current output
+        if(s == "wait"):
+            ser.write(b'wait\0')
+            receive_ack()
+        elif(s == "maze"):
+            ser.write(b'maze\0')
+            receive_ack()
+        elif(s == "draw"):
+            ser.write(b'draw\0')
+            receive_ack()
+            ser.write(frame)
+            receive_ack()
+            send_packet()
+        elif(s == "quit"):
+            ser.close()
+            break
+    else:
+        print("cannot open serial port")
 
-    if(s == "wait"):
-        ser.write(b'wait\0')
-        receive_ack()
-    elif(s == "maze"):
-        ser.write(b'maze\0')
-        receive_ack()
-    elif(s == "draw"):
-        ser.write(b'draw\0')
-        receive_ack()
-        ser.write(frame)
-        receive_ack()
-        send_packet()
-
-    ser.close()
-else:
-    print("cannot open serial port")
 
 
