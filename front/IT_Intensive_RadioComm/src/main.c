@@ -60,7 +60,13 @@ void setup(void) {
 /*                                                                      */
 /************************************************************************/
 void loop(void) {
+	
 	SYS_TaskHandler();  
+	
+	
+	usart_read_buffer_job( &(artist_front.usart_instance),
+	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
+	
 }
 /************************************************************************/
 /*                                                                      */

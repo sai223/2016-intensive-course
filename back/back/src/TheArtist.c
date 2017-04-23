@@ -12,7 +12,6 @@
 void usart_read_callback(struct usart_module * const usart_instance)
 {
 	//port_pin_toggle_output_level(LED_0_PIN);
-	//printf("%s\n", rx_buffer);
 	switch  (rx_buffer[0])	{
 		case 'm' :
 		switch (rx_buffer[1]){
@@ -32,6 +31,13 @@ void usart_read_callback(struct usart_module * const usart_instance)
 			artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
 			break;
 		}
+		break;		
+		/************************************************************************/
+		/*                                                                      */
+		/************************************************************************/
+		case 'l':  
+		usart_write_buffer_job(&artist_back.usart_instance, "l1\0\0\0", MAX_RX_BUFFER_LENGTH); 
+		break; 
 	}
 	usart_read_buffer_job( usart_instance,
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
@@ -127,7 +133,7 @@ void artist_draw_motor_tc_configure(void) {
 	
 }
 void callbacks (void) {
-	printf("."); 
+	// printf("."); 
 }
 
 void artist_configure_tc_callbacks(void)

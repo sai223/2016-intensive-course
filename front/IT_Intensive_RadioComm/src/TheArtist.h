@@ -25,7 +25,7 @@
 enum artist_state {
 	WAIT,
 	DOING_MAZE,
-	TRACING_LINE
+	DRAWING
 };
 
 typedef struct Artist_Front{

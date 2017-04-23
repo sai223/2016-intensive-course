@@ -29,11 +29,15 @@ void artist_ultrasonic_tc_configure() {
 void usart_read_callback(struct usart_module * const usart_instance)
 {
 	switch(rx_buffer[0]) {
-		case 'w' :
-		usart_write_buffer_job(usart_instance, "mw\0\0\0", MAX_RX_BUFFER_LENGTH);
-		break;
-		case ' ' :
-		usart_write_buffer_job(usart_instance, "m \0\0\0", MAX_RX_BUFFER_LENGTH);
+		case 'l' :
+		switch (rx_buffer[1]) {
+			case '1':
+			delay_ms(500);
+			usart_write_buffer_job(&artist_front.usart_instance, "lg\0\0\0", MAX_RX_BUFFER_LENGTH);
+			break;
+			case '2':
+			break;
+		}
 		break;
 	}
 	usart_read_buffer_job( usart_instance,
@@ -170,10 +174,10 @@ enum artist_state do_state_maze() {
 	// ! [ultra sonic]
 	return DOING_MAZE;
 }
-enum artist_state do_state_tracing_line() { 
-	usart_write_buffer_job(artist_front.usart_instance, "lg\0\0\0", MAX_RX_BUFFER_LENGTH);
-	return TRACING_LINE; 
-	}
+enum artist_state do_state_drawing() {
+	//usart_write_buffer_job(artist_front.usart_instance, "lg\0\0\0", MAX_RX_BUFFER_LENGTH);
+	return DRAWING;
+}
 enum artist_state do_state_wait() {return WAIT; }
 
 void callbacks (void) {
@@ -185,12 +189,12 @@ void callbacks (void) {
 		artist_front.state = do_state_maze();
 		break;
 		
-		case TRACING_LINE:
-		artist_front.state = do_state_tracing_line();
+		case DRAWING:
+		artist_front.state = do_state_drawing();
 		break;
 		
 		case WAIT:
-		default : 
+		default :
 		artist_front.state = do_state_wait();
 	}
 }

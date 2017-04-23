@@ -22,6 +22,15 @@ void setup() {
 	// [SYSTEM INITIALIZE] 
 
 	printf("back node setup complete\n"); 
+	
+	usart_read_buffer_job(&(artist_back.usart_instance),
+	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
+	
+	delay_ms(100); 
+	
+	usart_write_buffer_job(&(artist_back.usart_instance),
+	"l1\0\0\0", MAX_RX_BUFFER_LENGTH);
+	
 }
 
 void loop() {
@@ -33,6 +42,7 @@ void loop() {
 	usart_read_buffer_job(&(artist_back.usart_instance),
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
 	// ! [listen on RX buffer]
+	
 	
 }
 
