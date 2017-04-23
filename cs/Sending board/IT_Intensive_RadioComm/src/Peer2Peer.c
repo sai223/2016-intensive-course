@@ -210,7 +210,7 @@ void receive_mode () {
 					artistMode[1] = 0x02;
 					artistMode[2] = 0xFF;
 					artistMode[3] = 0xFF;
-					artistMode[4] = 0x07;
+					artistMode[4] = 0x00;
 				}
 				if(!strcmp(mode, "draw\0")) {
 					artistMode[0] = 0x01;
@@ -311,7 +311,7 @@ int main (void)
 			SYS_TimerStart(&sendM);
 			SYS_TimerStart(&sendT);	
 		}
-		else if(artistMode[4] == 0x04) {
+		else if(artistMode[4] == 0x04 || artistMode[4] == 0x00) {
 			SYS_TimerStart(&sendM);
 		}
 	}
