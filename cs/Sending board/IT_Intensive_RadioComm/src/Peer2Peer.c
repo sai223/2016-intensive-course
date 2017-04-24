@@ -1,36 +1,4 @@
-/**
-* \file
-*
-* \brief Empty user application template
-*
-*/
 
-/**
-* \mainpage User Application template doxygen documentation
-*
-* \par Empty user application template
-*
-* This is a bare minimum user application template.
-*
-* For documentation of the board, go \ref group_common_boards "here" for a link
-* to the board-specific documentation.
-*
-* \par Content
-*
-* -# Include the ASF header files (through asf.h)
-* -# Minimal main function that starts with a call to system_init()
-* -# Basic usage of on-board LED and button
-* -# "Insert application code here" comment
-*
-*/
-
-/*
-* Include header files for all drivers that have been imported from
-* Atmel Software Framework (ASF).
-*/
-/*
-* Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
-*/
 #include <asf.h>
 #include <string.h>
 
@@ -48,9 +16,9 @@ struct usart_module usart_instance;
 
 static NWK_DataReq_t appDataReq;
 
-bool sendBusy= false; // flag 역할 죽을수도 있어서
+bool sendBusy= false;
 
-#define MAX_FRAME_SIZE 30
+#define MAX_FRAME_SIZE 8
 #define MAX_ARTISTMODE_SIZE 5
 #define MAX_ACK_SIZE 5
 
@@ -157,20 +125,18 @@ static void sendArtistPKT(void) {
 	appDataReq.confirm = sendDonePKT;
 	NWK_DataReq(&appDataReq);
 	
-	//printf("sendPKT : %d\n", line_count);
 	sendBusy = true;
 	printf("%d complete\n", line_count);
-	//line_count++;
 }
 
 static void radioInit(void) {
-	NWK_SetAddr(ARTIST_GROUND_ADDR);  //주소 설정
-	NWK_SetPanId(APP_PANID);  //PANID : Personal Area Network ID
+	NWK_SetAddr(ARTIST_GROUND_ADDR);  
+	NWK_SetPanId(APP_PANID);  
 	PHY_SetChannel(ARTIST_CHANNEL);
 	PHY_SetRxState(true);
 	NWK_OpenEndpoint(APP_ENDPOINT, receivePKT);
 	
-	sendT.interval = 400; //interval 200ms 한번, periodic 200ms 간격으로 계속 쏘는거
+	sendT.interval = 400; 
 	sendT.mode =SYS_TIMER_PERIODIC_MODE;
 	sendT.handler = sendArtistPKT;
 	
@@ -179,22 +145,6 @@ static void radioInit(void) {
 	sendM.handler = sendArtistMode;
 }
 
-/*
-static void radioMazeInit(void) {
-	NWK_SetAddr(ARTIST_GROUND_ADDR);  //주소 설정
-	NWK_SetPanId(APP_PANID);  //PANID : Personal Area Network ID
-	PHY_SetChannel(ARTIST_CHANNEL);
-	PHY_SetRxState(true);
-	NWK_OpenEndpoint(APP_ENDPOINT, receivePKT);
-	
-	sendM.interval = 100;
-	sendM.mode = SYS_TIMER_INTERVAL_MODE;
-	sendM.handler = sendArtistMode;
-	//SYS_TimerStart(&sendM);
-	//SYS_TimerStop(&sendT);  // timer 멈추기
-}
-*/
-
 void receive_mode () {
 	
 	uint8_t mode[5] = {0,};
@@ -202,7 +152,7 @@ void receive_mode () {
 	while(true) {
 		SYS_TaskHandler();
 		if (usart_read_buffer_wait(&usart_instance, mode, sizeof(mode)) == STATUS_OK) {
-			if( !strcmp(mode, "draw\0") || !strcmp(mode, "maze\0") || !strcmp(mode, "wait\0") ) {
+			if( !strcmp(mode, "draw\0") || !strcmp(mode, "maze\0") || !strcmp(mode, "wait\0") || !strcmp(mode, "data\0") ) {
 				LED_Toggle(LED0);
 				
 				if(!strcmp(mode, "wait\0")) {
@@ -212,21 +162,28 @@ void receive_mode () {
 					artistMode[3] = 0xFF;
 					artistMode[4] = 0x00;
 				}
-				if(!strcmp(mode, "draw\0")) {
+				if(!strcmp(mode, "data\0")) {
 					artistMode[0] = 0x01;
 					artistMode[1] = 0x02;
 					artistMode[2] = 0xFF;
 					artistMode[3] = 0xFF;
 					artistMode[4] = 0x03;
-				}
+				}			
 				if(!strcmp(mode, "maze\0")) {
 					artistMode[0] = 0x01;
 					artistMode[1] = 0x02;
 					artistMode[2] = 0xFF;
 					artistMode[3] = 0xFF;
 					artistMode[4] = 0x04;
+				}					
+				if(!strcmp(mode, "draw\0")) {
+					artistMode[0] = 0x01;
+					artistMode[1] = 0x02;
+					artistMode[2] = 0xFF;
+					artistMode[3] = 0xFF;
+					artistMode[4] = 0x05;
 				}
-				
+
 				usart_write_buffer_wait(&usart_instance, ack, sizeof(ack));
 				break;
 			}
@@ -311,7 +268,7 @@ int main (void)
 			SYS_TimerStart(&sendM);
 			SYS_TimerStart(&sendT);	
 		}
-		else if(artistMode[4] == 0x04 || artistMode[4] == 0x00) {
+		else if(artistMode[4] == 0x00 || artistMode[4] == 0x04 || artistMode[4] == 0x05) {
 			SYS_TimerStart(&sendM);
 		}
 	}

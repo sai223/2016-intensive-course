@@ -19,19 +19,19 @@ void artist_motor_configure(struct artist_motor_module * motor_instance, uint8_t
 void artist_move_motor(struct artist_motor_module * motor_left_side,
 					struct artist_motor_module * motor_right_side,
 					enum DIRECTION_STATUS move_direction) {
-	if(move_direction ==  BACK){
+	if(move_direction == STRAIGHT){
 		artist_motor_forward(motor_left_side);
 		artist_motor_backward(motor_right_side);
 	}
-	else if(move_direction == RIGHT){
+	else if(move_direction == LEFT){
 		artist_motor_forward(motor_left_side);
 		artist_motor_forward(motor_right_side);
 	}
-	else if(move_direction ==LEFT ){
+	else if(move_direction == RIGHT){
 		artist_motor_backward(motor_left_side);
 		artist_motor_backward(motor_right_side);
 	}
-	else if(move_direction == STRAIGHT ){
+	else if(move_direction == BACK){
 		artist_motor_backward(motor_left_side);
 		artist_motor_forward(motor_right_side);
 	}

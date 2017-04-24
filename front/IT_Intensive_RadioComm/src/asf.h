@@ -115,9 +115,8 @@
 #include <tc.h>
 #include <tc_interrupt.h>
 
-// From module: TCC - Timer Counter for Control Applications (Callback APIs)
+// From module: TCC - Timer Counter for Control Applications (Polled APIs)
 #include <tcc.h>
-#include <tcc_callback.h>
 
 // From module: USART - Serial interface- SAM implementation for devices with only USART
 #include <serial.h>

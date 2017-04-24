@@ -141,8 +141,6 @@ src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
  ../src/ASF/sam0/drivers/tc/tc.h \
  ../src/ASF/sam0/drivers/tc/tc_interrupt.h \
  ../src/ASF/sam0/drivers/tc/tc.h ../src/ASF/sam0/drivers/tcc/tcc.h \
- ../src/ASF/sam0/drivers/tcc/tcc_callback.h \
- ../src/ASF/sam0/drivers/tcc/tcc.h \
  ../src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.h \
  ../src/config/conf_sio2host.h
 
@@ -433,10 +431,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/ASF/sam0/drivers/tc/tc_interrupt.h:
 
 ../src/ASF/sam0/drivers/tc/tc.h:
-
-../src/ASF/sam0/drivers/tcc/tcc.h:
-
-../src/ASF/sam0/drivers/tcc/tcc_callback.h:
 
 ../src/ASF/sam0/drivers/tcc/tcc.h:
 

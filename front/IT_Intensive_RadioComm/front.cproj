@@ -34,10 +34,11 @@
           <option id="common2.services.delay" value="Add" config="systick" content-id="Atmel.ASF" />
           <option id="sam0.drivers.port" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam0.drivers.sercom.usart" value="Add" config="callback" content-id="Atmel.ASF" />
+          <option id="sam0.drivers.tcc" value="Add" config="polled" content-id="Atmel.ASF" />
           <option id="sam0.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
           <option id="thirdparty.wireless.addons.sio2host" value="Add" config="uart" content-id="Atmel.ASF" />
           <option id="thirdparty.wireless.avr2130_lwmesh" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="sam0.drivers.tcc" value="Add" config="callback" content-id="Atmel.ASF" />
+          <option id="sam0.drivers.tc" value="Add" config="callback" content-id="Atmel.ASF" />
           <option id="common.utils" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam0.utils.cmsis.samr21.source.template" value="Add" config="" content-id="Atmel.ASF" />
           <option id="thirdparty.wireless.avr2130_lwmesh.apps.peer2peer" value="Add" config="" content-id="Atmel.ASF" />
@@ -256,17 +257,11 @@
           <file path="src/ASF/thirdparty/wireless/services/sal/inc/sal_types.h" framework="" version="" source="thirdparty/wireless/services/sal/inc/sal_types.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/thirdparty/wireless/services/trx_access/trx_access.c" framework="" version="" source="thirdparty/wireless/services/trx_access/trx_access.c" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/thirdparty/wireless/services/trx_access/trx_access.h" framework="" version="" source="thirdparty/wireless/services/trx_access/trx_access.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam0/drivers/tcc/tcc_callback.c" framework="" version="3.31.0" source="sam0\drivers\tcc\tcc_callback.c" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam0/drivers/tcc/tcc.c" framework="" version="3.31.0" source="sam0\drivers\tcc\tcc.c" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam0/drivers/tcc/quick_start_faultn/qs_tcc_faultn.h" framework="" version="3.31.0" source="sam0\drivers\tcc\quick_start_faultn\qs_tcc_faultn.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam0/drivers/tcc/quick_start_buffering/qs_tcc_buffering.h" framework="" version="3.31.0" source="sam0\drivers\tcc\quick_start_buffering\qs_tcc_buffering.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam0/drivers/tcc/quick_start_timer/qs_tcc_timer.h" framework="" version="3.31.0" source="sam0\drivers\tcc\quick_start_timer\qs_tcc_timer.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam0/drivers/tcc/quick_start_faultx/qs_tcc_faultx.h" framework="" version="3.31.0" source="sam0\drivers\tcc\quick_start_faultx\qs_tcc_faultx.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam0/drivers/tcc/quick_start_dma/qs_tcc_dma.h" framework="" version="3.31.0" source="sam0\drivers\tcc\quick_start_dma\qs_tcc_dma.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam0/drivers/tcc/tcc.h" framework="" version="3.31.0" source="sam0\drivers\tcc\tcc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam0/drivers/tcc/quick_start_callback/qs_tcc_callback.h" framework="" version="3.31.0" source="sam0\drivers\tcc\quick_start_callback\qs_tcc_callback.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam0/drivers/tcc/quick_start/qs_tcc_basic.h" framework="" version="3.31.0" source="sam0\drivers\tcc\quick_start\qs_tcc_basic.h" changed="False" content-id="Atmel.ASF" />
-          <file path="src/ASF/sam0/drivers/tcc/tcc_callback.h" framework="" version="3.31.0" source="sam0\drivers\tcc\tcc_callback.h" changed="False" content-id="Atmel.ASF" />
         </files>
         <documentation help="http://asf.atmel.com/docs/3.31.0/thirdparty.wireless.avr2130_lwmesh.apps.peer2peer.samr21_xplained_pro/html/index.html" />
         <offline-documentation help="" />
@@ -328,7 +323,7 @@
       <Value>SYSTICK_MODE</Value>
       <Value>SPI_CALLBACK_MODE=false</Value>
       <Value>SAL_TYPE=AT86RF2xx</Value>
-      <Value>TCC_ASYNC=true</Value>
+      <Value>TCC_ASYNC=false</Value>
     </ListValues>
   </armgcc.compiler.symbols.DefSymbols>
   <armgcc.compiler.directories.IncludePaths>
@@ -446,7 +441,7 @@
       <Value>../src/ASF/sam0/drivers/tcc</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
-  <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM0PLUS=true -DBOARD=SAMR21_XPLAINED_PRO -DEXTINT_CALLBACK_MODE=true -DPHY_AT86RF233 -DSAL_TYPE=AT86RF2xx -DSPI_CALLBACK_MODE=false -DSYSTICK_MODE -DTC_ASYNC=true -DUSART_CALLBACK_MODE=true -D__SAMR21G18A__ -DTCC_ASYNC=true</armgcc.preprocessingassembler.general.AssemblerFlags>
+  <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM0PLUS=true -DBOARD=SAMR21_XPLAINED_PRO -DEXTINT_CALLBACK_MODE=true -DPHY_AT86RF233 -DSAL_TYPE=AT86RF2xx -DSPI_CALLBACK_MODE=false -DSYSTICK_MODE -DTC_ASYNC=true -DUSART_CALLBACK_MODE=true -D__SAMR21G18A__ -DTCC_ASYNC=false</armgcc.preprocessingassembler.general.AssemblerFlags>
   <armgcc.preprocessingassembler.general.IncludePaths>
     <ListValues>
       <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/samr21_xplained_pro</Value>
@@ -518,7 +513,7 @@
       <Value>SYSTICK_MODE</Value>
       <Value>SPI_CALLBACK_MODE=false</Value>
       <Value>SAL_TYPE=AT86RF2xx</Value>
-      <Value>TCC_ASYNC=true</Value>
+      <Value>TCC_ASYNC=false</Value>
     </ListValues>
   </armgcc.compiler.symbols.DefSymbols>
   <armgcc.compiler.directories.IncludePaths>
@@ -644,7 +639,7 @@
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
-  <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM0PLUS=true -DBOARD=SAMR21_XPLAINED_PRO -DEXTINT_CALLBACK_MODE=true -DPHY_AT86RF233 -DSAL_TYPE=AT86RF2xx -DSPI_CALLBACK_MODE=false -DSYSTICK_MODE -DTC_ASYNC=true -DUSART_CALLBACK_MODE=true -D__SAMR21G18A__ -DTCC_ASYNC=true</armgcc.preprocessingassembler.general.AssemblerFlags>
+  <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM0PLUS=true -DBOARD=SAMR21_XPLAINED_PRO -DEXTINT_CALLBACK_MODE=true -DPHY_AT86RF233 -DSAL_TYPE=AT86RF2xx -DSPI_CALLBACK_MODE=false -DSYSTICK_MODE -DTC_ASYNC=true -DUSART_CALLBACK_MODE=true -D__SAMR21G18A__ -DTCC_ASYNC=false</armgcc.preprocessingassembler.general.AssemblerFlags>
   <armgcc.preprocessingassembler.general.IncludePaths>
     <ListValues>
       <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/samr21_xplained_pro</Value>
@@ -742,11 +737,7 @@
     <Folder Include="src\ASF\sam0\drivers\tcc\" />
     <Folder Include="src\ASF\sam0\drivers\tcc\quick_start\" />
     <Folder Include="src\ASF\sam0\drivers\tcc\quick_start_buffering\" />
-    <Folder Include="src\ASF\sam0\drivers\tcc\quick_start_callback\" />
     <Folder Include="src\ASF\sam0\drivers\tcc\quick_start_dma\" />
-    <Folder Include="src\ASF\sam0\drivers\tcc\quick_start_faultn\" />
-    <Folder Include="src\ASF\sam0\drivers\tcc\quick_start_faultx\" />
-    <Folder Include="src\ASF\sam0\drivers\tcc\quick_start_timer\" />
     <Folder Include="src\ASF\sam0\drivers\tc\" />
     <Folder Include="src\ASF\sam0\drivers\tc\tc_sam_d_r\" />
     <Folder Include="src\ASF\sam0\utils\" />
@@ -813,6 +804,9 @@
     <Compile Include="src\Maze.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\Motor.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\Radio.c">
       <SubType>compile</SubType>
     </Compile>
@@ -825,22 +819,10 @@
     <Compile Include="src\UltraSonic.h">
       <SubType>compile</SubType>
     </Compile>
-    <None Include="src\ASF\sam0\drivers\tcc\quick_start_faultn\qs_tcc_faultn.h">
-      <SubType>compile</SubType>
-    </None>
     <None Include="src\ASF\sam0\drivers\tcc\quick_start_buffering\qs_tcc_buffering.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="src\ASF\sam0\drivers\tcc\quick_start_timer\qs_tcc_timer.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="src\ASF\sam0\drivers\tcc\quick_start_faultx\qs_tcc_faultx.h">
-      <SubType>compile</SubType>
-    </None>
     <None Include="src\ASF\sam0\drivers\tcc\quick_start_dma\qs_tcc_dma.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="src\ASF\sam0\drivers\tcc\quick_start_callback\qs_tcc_callback.h">
       <SubType>compile</SubType>
     </None>
     <None Include="src\ASF\sam0\drivers\tcc\quick_start\qs_tcc_basic.h">
@@ -850,12 +832,6 @@
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\sam0\drivers\tcc\tcc.h">
-      <SubType>compile</SubType>
-    </None>
-    <Compile Include="src\ASF\sam0\drivers\tcc\tcc_callback.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <None Include="src\ASF\sam0\drivers\tcc\tcc_callback.h">
       <SubType>compile</SubType>
     </None>
     <Compile Include="src\config\conf_the_artist_front.h">

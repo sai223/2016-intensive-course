@@ -8,7 +8,7 @@
 #include "TheArtist.h"
 #include "Motor.h"
 
-void artist_drawing_init() {
+void artist_drawing_go() {
 	artist_back.state = DRAW;
 	artist_back.draw_state = TRACING_LINE;
 }
@@ -16,10 +16,11 @@ void artist_drawing_stop() {
 	artist_back.state = STOP;
 	artist_back.draw_state = WAIT;
 	artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
+	artist_move_motor(&(artist_back.motor_left_side), &(artist_back.motor_right_side), STOP);
 }
 void artist_status_init() {
 	//printf("state_init : draw\n");
-	artist_back.state = WAIT;
+	artist_back.state = STOP;
 	artist_back.draw_state = WAIT;
 }
 
@@ -55,11 +56,11 @@ void usart_read_callback(struct usart_module * const usart_instance)
 			artist_drawing_stop();
 			break;
 			
-			case 'g' :  //go
-			artist_drawing_init();
+			case 'g' :  //go or stamping complete. 
+			artist_drawing_go();
 			break;
 			
-			case '4' : // stamping complete.
+			case '4' : // drawing complete.
 			printf("STMPC");
 		}
 		break;
@@ -119,7 +120,7 @@ void artist_motor_pwm_configure(struct Artist_Back * const artist){
 	
 	
 	config.compare.match[artist->motor_left_side.pwm_channel]				= artist->motor_left_side.pwm_val;
-	config.pins.enable_wave_out_pin[artist->motor_left_side.pwm_output]	=	true;
+	config.pins.enable_wave_out_pin[artist->motor_left_side.pwm_output]		=	true;
 	config.pins.wave_out_pin[artist->motor_left_side.pwm_output]			= artist->motor_left_side.pwm_pin_num;
 	config.pins.wave_out_pin_mux[artist->motor_left_side.pwm_output]		= artist->motor_left_side.pwm_mux_num;
 	
@@ -143,7 +144,7 @@ void artist_draw_motor_tc_configure(void) {
 	config_tc.counter_size = TC_COUNTER_SIZE_8BIT;
 	config_tc.clock_source = GCLK_GENERATOR_3;
 	config_tc.clock_prescaler = TC_CLOCK_PRESCALER_DIV1024; //
-	config_tc.counter_8_bit.period = 50;
+	config_tc.counter_8_bit.period = 20;
 	//config_tc.counter_8_bit.compare_capture_channel[0] = 5;
 	//config_tc.counter_8_bit.compare_capture_channel[1] = 54;
 	//! [setup_change_config]
@@ -167,12 +168,10 @@ void callbacks (void) {
 		case DRAW :
 		switch (artist_back.draw_state) {
 			case TRACING_LINE :
-			do_drawing();
+			//do_drawing();
 			break;
 			
 		}
-		break;
-		case MOVE :
 		break;
 	}
 }

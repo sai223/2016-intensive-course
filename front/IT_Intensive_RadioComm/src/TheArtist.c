@@ -9,7 +9,11 @@
 #include "TheArtist.h"
 
 
-void artist_state_init() {	artist_front.state = WAIT;	}
+void artist_state_init() {
+	artist_front.state = WAIT;
+	artist_front.running_stamp = false;
+	artist_front.draw_sequence_counter = 0;
+}
 
 void artist_ultrasonic_tc_configure() {
 	
@@ -26,21 +30,23 @@ void artist_ultrasonic_tc_configure() {
 }
 
 void usart_handle_drawing() {
-		switch(rx_buffer[0]) {
-			case 'l' :
-			switch (rx_buffer[1]) {
-				case '1': // back node met drawing point
-				break;
-				case '2':
-				break;
-			}
+	//printf(rx_buffer);
+	switch(rx_buffer[0]) {
+		case 'l' :
+		switch (rx_buffer[1]) {
+			case 'p': // back node met drawing point
+			artist_front.running_stamp = true;
+			break;
+			case '2':
 			break;
 		}
+		break;
+	}
 }
 void usart_read_callback(struct usart_module * const usart_instance)
 {
-	//if (artist_front.state == DRAWING) 
-	usart_handle_drawing(); 
+	//if (artist_front.state == DRAWING)
+	usart_handle_drawing();
 	
 	usart_read_buffer_job( usart_instance,
 	(uint8_t *)rx_buffer, MAX_RX_BUFFER_LENGTH);
@@ -81,7 +87,6 @@ void artist_usart_configure(struct usart_module * usart_instance) {
 	
 	stdio_serial_init(usart_instance, EDBG_CDC_MODULE, &config);
 }
-
 
 void artist_motor_pwm_configure(struct Artist_Front * const artist){
 	
@@ -170,7 +175,6 @@ enum artist_state do_state_maze() {
 	
 	#endif
 	
-
 	// ! [ultra sonic]
 	return DOING_MAZE;
 }
