@@ -156,7 +156,7 @@ enum artist_state do_state_maze() {
 	
 	static uint16_t maze_counter = 0;
 	maze_counter ++;
-	if (maze_counter > 10) {
+	if (maze_counter > 30) {
 		artist_do_maze();
 		maze_counter = 0;
 	}

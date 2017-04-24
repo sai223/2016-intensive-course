@@ -2257,8 +2257,8 @@ enum artist_state do_state_maze() {
      d40:	3301      	adds	r3, #1
      d42:	b29b      	uxth	r3, r3
      d44:	8013      	strh	r3, [r2, #0]
-	if (maze_counter > 10) {
-     d46:	2b0a      	cmp	r3, #10
+	if (maze_counter > 30) {
+     d46:	2b1e      	cmp	r3, #30
      d48:	d807      	bhi.n	d5a <do_state_maze+0x2e>
 	#endif
 	
